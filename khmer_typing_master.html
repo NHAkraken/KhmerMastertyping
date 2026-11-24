@@ -1,0 +1,3598 @@
+<!doctype html>
+<html lang="km">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khmer Typing Master | អ្នកជំនាញវាយអក្សរខ្មែរ</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for authentic, crisp Khmer script & UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Kantumruy+Pro:wght@400;500;600;700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FontAwesome for UI Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Kantumruy Pro", "Noto Sans Khmer", "Inter", "sans-serif"],
+              khmer: [
+                "Noto Sans Khmer",
+                "Battambang",
+                "Kantumruy Pro",
+                "sans-serif",
+              ],
+              mono: ["JetBrains Mono", "Fira Code", "monospace"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Kantumruy Pro", "Noto Sans Khmer", "Inter", sans-serif;
+        overflow-x: hidden;
+        user-select: none;
+      }
+
+      .khmer-display {
+        font-family: "Noto Sans Khmer", "Battambang", sans-serif;
+        line-height: 1.9;
+        letter-spacing: 0.02em;
+      }
+
+      /* Visual Keyboard Key Styling */
+      .k-key {
+        transition: all 0.08s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2);
+      }
+      .dark .k-key {
+        box-shadow: 0 3px 0 rgba(0, 0, 0, 0.55);
+      }
+      .k-key:active,
+      .k-key.pressed {
+        transform: translateY(2px);
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+      }
+
+      @keyframes pulseTarget {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+        }
+        50% {
+          transform: scale(1.04);
+          box-shadow: 0 0 0 6px rgba(245, 158, 11, 0);
+        }
+      }
+      .key-target {
+        background: linear-gradient(135deg, #f59e0b, #ea580c) !important;
+        color: #ffffff !important;
+        border-color: #fbbf24 !important;
+        animation: pulseTarget 1.4s infinite;
+        z-index: 10;
+      }
+      .key-target span {
+        color: #ffffff !important;
+      }
+
+      /* Finger color zones */
+      .f-pinky-l {
+        border-bottom: 3px solid #ec4899 !important;
+      }
+      .f-ring-l {
+        border-bottom: 3px solid #8b5cf6 !important;
+      }
+      .f-mid-l {
+        border-bottom: 3px solid #3b82f6 !important;
+      }
+      .f-idx-l {
+        border-bottom: 3px solid #10b981 !important;
+      }
+      .f-idx-r {
+        border-bottom: 3px solid #14b8a6 !important;
+      }
+      .f-mid-r {
+        border-bottom: 3px solid #eab308 !important;
+      }
+      .f-ring-r {
+        border-bottom: 3px solid #f97316 !important;
+      }
+      .f-pinky-r {
+        border-bottom: 3px solid #ef4444 !important;
+      }
+      .f-thumb {
+        border-bottom: 3px solid #64748b !important;
+      }
+
+      @keyframes blinkCaret {
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
+      }
+      .caret-blink {
+        animation: blinkCaret 1s infinite;
+      }
+
+      ::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(156, 163, 175, 0.4);
+        border-radius: 9999px;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200"
+  >
+    <!-- ==================== TOP NAVIGATION BAR ==================== -->
+    <header
+      class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2"
+      >
+        <!-- Brand Logo -->
+        <div
+          class="flex items-center gap-3 cursor-pointer"
+          onclick="switchMode('lessons')"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-amber-500/20 khmer-display"
+          >
+            ក
+          </div>
+          <div>
+            <h1
+              class="font-bold text-base sm:text-lg leading-tight tracking-tight text-slate-900 dark:text-white"
+            >
+              Khmer Typing
+              <span class="text-amber-600 dark:text-amber-400">Master</span>
+            </h1>
+            <p
+              class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium"
+            >
+              អ្នកជំនាញវាយអក្សរខ្មែរ
+            </p>
+          </div>
+        </div>
+
+        <!-- Mode Navigation Tabs -->
+        <nav
+          class="flex items-center bg-slate-100 dark:bg-slate-800/90 p-1 rounded-xl border border-slate-200/70 dark:border-slate-700/70"
+        >
+          <button
+            type="button"
+            id="nav-lessons"
+            onclick="switchMode('lessons')"
+            class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow-sm"
+          >
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>មេរៀន <span class="hidden md:inline">(Lessons)</span></span>
+          </button>
+          <button
+            type="button"
+            id="nav-race"
+            onclick="switchMode('race')"
+            class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all"
+          >
+            <i class="fa-solid fa-gauge-high"></i>
+            <span
+              >ប្រណាំងល្បឿន
+              <span class="hidden md:inline">(Speed Race)</span></span
+            >
+          </button>
+          <button
+            type="button"
+            id="nav-game"
+            onclick="switchMode('game')"
+            class="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all"
+          >
+            <i class="fa-solid fa-gamepad"></i>
+            <span
+              >ហ្គេមសិក្សា <span class="hidden md:inline">(4 Games)</span></span
+            >
+          </button>
+        </nav>
+
+        <!-- Global Controls -->
+        <div class="flex items-center gap-1.5 sm:gap-2.5">
+          <button
+            type="button"
+            id="toggle-nida-btn"
+            onclick="toggleNidaAutoMap()"
+            title="បម្លែងក្តារចុចអង់គ្លេសទៅជាខ្មែរ NiDA ដោយស្វ័យប្រវត្តិ"
+            class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all bg-emerald-50 border-emerald-200 text-emerald-700 dark:bg-emerald-950/60 dark:border-emerald-800 dark:text-emerald-300"
+          >
+            <i class="fa-solid fa-keyboard"></i>
+            <span class="hidden sm:inline">NiDA Auto:</span>
+            <span id="nida-status-badge" class="font-bold">ON</span>
+          </button>
+
+          <button
+            type="button"
+            id="toggle-sound-btn"
+            onclick="toggleSound()"
+            title="បិទ/បើកសំឡេង"
+            class="w-9 h-9 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors"
+          >
+            <i id="sound-icon" class="fa-solid fa-volume-high"></i>
+          </button>
+
+          <button
+            type="button"
+            onclick="toggleTheme()"
+            title="ប្តូរពណ៌ផ្ទៃ"
+            class="w-9 h-9 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors"
+          >
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hidden Input for Native IME Capture -->
+    <input
+      type="text"
+      id="global-typing-input"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      class="fixed opacity-0 pointer-events-none -top-96 left-0"
+      aria-label="Khmer Typing Input"
+    />
+
+    <!-- ==================== MAIN WORKSPACE ==================== -->
+    <main
+      class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 flex flex-col gap-5"
+    >
+      <!-- Helper Banner -->
+      <div
+        class="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-slate-900 dark:to-slate-800/80 border border-amber-200/80 dark:border-amber-900/50 rounded-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm"
+      >
+        <div
+          class="flex items-center gap-2.5 text-amber-900 dark:text-amber-200"
+        >
+          <span
+            class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0"
+          >
+            <i class="fa-solid fa-lightbulb"></i>
+          </span>
+          <span>
+            <strong>ជំនួយសិស្ស៖</strong> មុខងារ
+            <strong>NiDA Auto-Map</strong> កំពុងបើក!
+            សិស្សអាចវាយអក្សរខ្មែរបានភ្លាមៗដោយប្រើក្តារចុចអង់គ្លេសធម្មតា
+            ឬប្តូរទៅក្តារចុច Khmer NiDA របស់កុំព្យូទ័រ។
+          </span>
+        </div>
+        <div
+          class="flex items-center gap-3 text-xs text-slate-600 dark:text-slate-400"
+        >
+          <span
+            ><i class="fa-solid fa-star text-amber-500 mr-1"></i>ផ្កាយសរុប:
+            <strong
+              id="header-total-stars"
+              class="text-slate-900 dark:text-white"
+              >0 / 30</strong
+            ></span
+          >
+          <span
+            ><i class="fa-solid fa-trophy text-orange-500 mr-1"></i
+            >ល្បឿនខ្ពស់បំផុត:
+            <strong id="header-best-wpm" class="text-slate-900 dark:text-white"
+              >0 WPM</strong
+            ></span
+          >
+        </div>
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- MODE 1: KAREN TYPING-STYLE LESSONS (មេរៀនវាយអត្ថបទ)                  -->
+      <!-- ===================================================================== -->
+      <section id="view-lessons" class="flex flex-col lg:flex-row gap-5">
+        <!-- Left Sidebar: 10 Structured Lessons -->
+        <aside
+          class="w-full lg:w-80 shrink-0 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex flex-col gap-3 shadow-sm"
+        >
+          <div class="flex items-center justify-between">
+            <h2
+              class="font-bold text-sm sm:text-base text-slate-900 dark:text-white flex items-center gap-2"
+            >
+              <i class="fa-solid fa-list-check text-amber-500"></i>
+              កម្មវិធីសិក្សា (10 មេរៀន)
+            </h2>
+            <span
+              id="lesson-progress-badge"
+              class="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300"
+              >0/10 បញ្ចប់</span
+            >
+          </div>
+
+          <!-- Category Filters -->
+          <div class="flex gap-1.5 overflow-x-auto pb-1 text-xs">
+            <button
+              type="button"
+              onclick="filterLessons('all')"
+              data-cat="all"
+              class="lesson-cat-btn px-2.5 py-1 rounded-lg font-semibold bg-amber-500 text-white shrink-0"
+            >
+              ទាំងអស់
+            </button>
+            <button
+              type="button"
+              onclick="filterLessons('basics')"
+              data-cat="basics"
+              class="lesson-cat-btn px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0"
+            >
+              មូលដ្ឋាន
+            </button>
+            <button
+              type="button"
+              onclick="filterLessons('shift')"
+              data-cat="shift"
+              class="lesson-cat-btn px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0"
+            >
+              Shift & ជើង
+            </button>
+            <button
+              type="button"
+              onclick="filterLessons('words')"
+              data-cat="words"
+              class="lesson-cat-btn px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0"
+            >
+              ពាក្យ & សុភាសិត
+            </button>
+          </div>
+
+          <!-- Scrollable Lessons List -->
+          <div
+            id="lesson-list-container"
+            class="flex flex-col gap-2 max-h-[380px] lg:max-h-[540px] overflow-y-auto pr-1"
+          >
+            <!-- Populated via JS -->
+          </div>
+        </aside>
+
+        <!-- Right Area: Typing Stage + Visual NiDA Keyboard -->
+        <div class="flex-1 flex flex-col gap-4 min-w-0">
+          <!-- Lesson Header & Live Stats -->
+          <div
+            class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-sm flex flex-col gap-4"
+          >
+            <div
+              class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3"
+            >
+              <div>
+                <span
+                  id="current-lesson-tag"
+                  class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400"
+                  >មេរៀនទី ១</span
+                >
+                <h2
+                  id="current-lesson-title"
+                  class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white"
+                >
+                  ជួរកណ្តាល - ផ្នែកទី ១ (Home Row Basics)
+                </h2>
+                <p
+                  id="current-lesson-desc"
+                  class="text-xs text-slate-500 dark:text-slate-400 mt-0.5"
+                >
+                  ហ្វឹកហាត់តួអក្សរមូលដ្ឋានជួរកណ្តាល៖ ា ស ដ ថ ង និង ហ ក ល
+                </p>
+              </div>
+
+              <!-- Live Metrics -->
+              <div
+                class="flex items-center gap-3 sm:gap-5 bg-slate-50 dark:bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-200/70 dark:border-slate-700"
+              >
+                <div class="text-center">
+                  <div class="text-[11px] text-slate-400 font-semibold">
+                    ល្បឿន (WPM)
+                  </div>
+                  <div
+                    id="lesson-wpm"
+                    class="text-lg sm:text-xl font-extrabold text-amber-600 dark:text-amber-400"
+                  >
+                    0
+                  </div>
+                </div>
+                <div class="w-px h-7 bg-slate-200 dark:bg-slate-700"></div>
+                <div class="text-center">
+                  <div class="text-[11px] text-slate-400 font-semibold">
+                    ភាពត្រឹមត្រូវ
+                  </div>
+                  <div
+                    id="lesson-acc"
+                    class="text-lg sm:text-xl font-extrabold text-emerald-600 dark:text-emerald-400"
+                  >
+                    100%
+                  </div>
+                </div>
+                <div class="w-px h-7 bg-slate-200 dark:bg-slate-700"></div>
+                <button
+                  type="button"
+                  onclick="resetCurrentLesson()"
+                  title="ចាប់ផ្តើមមេរៀនឡើងវិញ"
+                  class="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors"
+                >
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Lesson Progress Bar -->
+            <div
+              class="w-full h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden"
+            >
+              <div
+                id="lesson-progress-bar"
+                class="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-150"
+                style="width: 0%"
+              ></div>
+            </div>
+
+            <!-- Interactive Typing Text Display -->
+            <div
+              onclick="focusTypingInput()"
+              class="relative bg-slate-50 dark:bg-slate-950/70 border-2 border-slate-200 dark:border-slate-800 focus-within:border-amber-500 rounded-2xl p-4 sm:p-6 min-h-[135px] flex items-center cursor-text transition-colors"
+            >
+              <div
+                id="lesson-text-display"
+                class="khmer-display text-2xl sm:text-3xl font-medium tracking-wide flex flex-wrap gap-y-2 select-none"
+              >
+                <!-- Characters rendered dynamically -->
+              </div>
+              <div
+                id="lesson-focus-hint"
+                class="hidden absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] rounded-2xl flex items-center justify-center text-white font-semibold text-sm gap-2"
+              >
+                <i class="fa-solid fa-mouse-pointer text-amber-400"></i>
+                ចុចទីនេះដើម្បីបន្តវាយអក្សរ (Click here to type)
+              </div>
+            </div>
+
+            <!-- Next Key & Finger Instruction Bar -->
+            <div
+              class="flex flex-wrap items-center justify-between gap-2 bg-amber-50/70 dark:bg-slate-800/60 border border-amber-200/60 dark:border-slate-700 rounded-xl px-4 py-2.5 text-xs sm:text-sm"
+            >
+              <div class="flex items-center gap-3">
+                <span class="text-slate-500 dark:text-slate-400 font-medium"
+                  >គ្រាប់ចុចបន្ទាប់៖</span
+                >
+                <span
+                  id="next-char-box"
+                  class="px-3 py-1 rounded-lg bg-amber-500 text-white font-bold text-lg khmer-display shadow-sm"
+                  >ា</span
+                >
+                <span
+                  id="next-key-instruction"
+                  class="font-semibold text-slate-800 dark:text-slate-200"
+                  >ចុចគ្រាប់ចុច
+                  <kbd
+                    class="px-2 py-0.5 bg-white dark:bg-slate-700 rounded border border-slate-300 dark:border-slate-600 font-mono"
+                    >A</kbd
+                  >
+                  (កូនដៃឆ្វេង)</span
+                >
+              </div>
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  onclick="prevLesson()"
+                  class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold"
+                >
+                  <i class="fa-solid fa-chevron-left mr-1"></i> មុន
+                </button>
+                <button
+                  type="button"
+                  onclick="nextLesson()"
+                  class="px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-semibold"
+                >
+                  បន្ទាប់ <i class="fa-solid fa-chevron-right ml-1"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual Khmer NiDA Keyboard -->
+          <div
+            class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-3 sm:p-4 shadow-sm overflow-x-auto"
+          >
+            <div class="flex items-center justify-between mb-2.5 px-1">
+              <span
+                class="text-xs font-bold text-slate-500 dark:text-slate-400 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-keyboard text-amber-500"></i>
+                ក្តារចុចខ្មែរស្តង់ដារ NiDA (Visual Khmer Keyboard)
+              </span>
+              <div
+                class="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400"
+              >
+                <span
+                  id="shift-indicator-badge"
+                  class="hidden px-2 py-0.5 rounded bg-purple-100 text-purple-700 dark:bg-purple-900/50 dark:text-purple-300 font-bold animate-pulse"
+                >
+                  <i class="fa-solid fa-arrow-up mr-1"></i> ត្រូវចុច SHIFT ជាប់!
+                </span>
+                <span class="hidden sm:inline"
+                  >ពណ៌បន្ទាត់ខាងក្រោមគ្រាប់ចុចបង្ហាញពីម្រាមដៃនីមួយៗ</span
+                >
+              </div>
+            </div>
+
+            <div
+              id="virtual-keyboard"
+              class="min-w-[680px] flex flex-col gap-1.5 select-none"
+            >
+              <!-- Keys generated dynamically via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- MODE 2: MONKEYTYPE-STYLE SPEED RACE & AI BOT (ប្រណាំងល្បឿន)           -->
+      <!-- ===================================================================== -->
+      <section id="view-race" class="hidden flex-col gap-5">
+        <!-- Race Settings Bar -->
+        <div
+          class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-3 sm:px-5 flex flex-wrap items-center justify-between gap-3 shadow-sm"
+        >
+          <div class="flex flex-wrap items-center gap-2">
+            <div
+              class="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs"
+            >
+              <button
+                type="button"
+                id="race-mode-time"
+                onclick="setRaceMode('time')"
+                class="px-3 py-1.5 rounded-lg font-semibold bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow-sm"
+              >
+                <i class="fa-regular fa-clock mr-1"></i> កំណត់ពេល (Time)
+              </button>
+              <button
+                type="button"
+                id="race-mode-words"
+                onclick="setRaceMode('words')"
+                class="px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300"
+              >
+                <i class="fa-solid fa-font mr-1"></i> ចំនួនពាក្យ (Words)
+              </button>
+            </div>
+
+            <div
+              id="race-suboptions"
+              class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl text-xs"
+            >
+              <button
+                type="button"
+                onclick="setRaceValue(15)"
+                class="race-val-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 dark:text-slate-300"
+                data-val="15"
+              >
+                15s
+              </button>
+              <button
+                type="button"
+                onclick="setRaceValue(30)"
+                class="race-val-btn px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-white"
+                data-val="30"
+              >
+                30s
+              </button>
+              <button
+                type="button"
+                onclick="setRaceValue(60)"
+                class="race-val-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 dark:text-slate-300"
+                data-val="60"
+              >
+                60s
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Bot Opponent Selector -->
+          <div class="flex items-center gap-2 text-xs">
+            <span class="font-semibold text-slate-500 dark:text-slate-400"
+              ><i class="fa-solid fa-robot text-indigo-500 mr-1"></i>ប្រកួតជាមួយ
+              Bot:</span
+            >
+            <select
+              id="race-bot-select"
+              onchange="resetRace()"
+              class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 font-semibold text-slate-800 dark:text-slate-200"
+            >
+              <option value="0">គ្មាន Bot (Solo Practice)</option>
+              <option value="15">សិស្សថ្មី (15 WPM)</option>
+              <option value="30" selected>សិស្សពូកែ (30 WPM)</option>
+              <option value="50">គ្រូបង្រៀន (50 WPM)</option>
+              <option value="75">ជើងឯកជាតិ (75 WPM)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Visual Race Track -->
+        <div
+          class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 shadow-sm flex flex-col gap-3"
+        >
+          <div
+            class="flex items-center justify-between text-xs font-bold text-slate-500 dark:text-slate-400"
+          >
+            <span
+              ><i class="fa-solid fa-flag-checkered text-amber-500 mr-1.5"></i
+              >ទីលានប្រណាំងល្បឿន (Live Race Track)</span
+            >
+            <span
+              id="race-status-text"
+              class="text-amber-600 dark:text-amber-400"
+              >ចាប់ផ្តើមវាយអក្សរដើម្បីចេញដំណើរ!</span
+            >
+          </div>
+
+          <!-- Student Lane -->
+          <div class="flex flex-col gap-1">
+            <div class="flex justify-between text-xs font-bold">
+              <span
+                class="text-amber-600 dark:text-amber-400 flex items-center gap-1.5"
+                ><i class="fa-solid fa-user-graduate"></i> អ្នក (You)</span
+              >
+              <span
+                id="race-player-wpm-badge"
+                class="text-slate-600 dark:text-slate-300"
+                >0 WPM</span
+              >
+            </div>
+            <div
+              class="w-full h-3.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5"
+            >
+              <div
+                id="race-player-bar"
+                class="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-200"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <!-- AI Bot Lane -->
+          <div id="race-bot-lane" class="flex flex-col gap-1">
+            <div class="flex justify-between text-xs font-bold">
+              <span
+                class="text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5"
+                ><i class="fa-solid fa-robot"></i>
+                <span id="race-bot-name">Bot (30 WPM)</span></span
+              >
+              <span
+                id="race-bot-wpm-badge"
+                class="text-slate-600 dark:text-slate-300"
+                >30 WPM</span
+              >
+            </div>
+            <div
+              class="w-full h-3.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden p-0.5"
+            >
+              <div
+                id="race-bot-bar"
+                class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-300"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monkeytype Minimalist Word Stream Area -->
+        <div
+          onclick="focusTypingInput()"
+          class="bg-white dark:bg-slate-900 rounded-2xl border-2 border-slate-200 dark:border-slate-800 focus-within:border-amber-500 p-5 sm:p-8 shadow-sm cursor-text relative"
+        >
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4">
+              <div
+                class="text-2xl sm:text-3xl font-extrabold text-amber-500 font-mono"
+              >
+                <span id="race-timer-display">30</span
+                ><span
+                  id="race-timer-unit"
+                  class="text-sm font-sans ml-1 text-slate-400"
+                  >វិនាទី</span
+                >
+              </div>
+              <div class="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+              <div class="text-sm font-bold text-slate-600 dark:text-slate-300">
+                WPM:
+                <span
+                  id="race-live-wpm"
+                  class="text-slate-900 dark:text-white text-lg"
+                  >0</span
+                >
+              </div>
+              <div class="text-sm font-bold text-slate-600 dark:text-slate-300">
+                ភាពត្រឹមត្រូវ:
+                <span
+                  id="race-live-acc"
+                  class="text-emerald-600 dark:text-emerald-400 text-lg"
+                  >100%</span
+                >
+              </div>
+            </div>
+            <button
+              type="button"
+              onclick="resetRace()"
+              class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-xs font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1.5"
+            >
+              <i class="fa-solid fa-rotate-right"></i> ពាក្យថ្មី
+            </button>
+          </div>
+
+          <!-- Words Box -->
+          <div
+            id="race-words-container"
+            class="khmer-display text-2xl sm:text-3xl leading-relaxed flex flex-wrap gap-x-3.5 gap-y-2.5 max-h-[210px] overflow-hidden select-none"
+          >
+            <!-- Words generated via JS -->
+          </div>
+
+          <p class="text-xs text-slate-400 mt-5 flex items-center gap-2">
+            <i class="fa-solid fa-circle-info"></i> ចុច
+            <strong>Spacebar (ដកឃ្លា)</strong> បន្ទាប់ពីវាយពាក្យនីមួយៗរួច
+            ដើម្បីបន្តទៅពាក្យបន្ទាប់។
+          </p>
+        </div>
+
+        <!-- Post-Race Analytics Summary Card -->
+        <div
+          id="race-result-panel"
+          class="hidden bg-white dark:bg-slate-900 rounded-2xl border border-amber-300 dark:border-amber-700/60 p-5 sm:p-6 shadow-md"
+        >
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-6"
+          >
+            <div class="flex flex-col gap-1 text-center md:text-left">
+              <span
+                id="race-winner-badge"
+                class="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 w-fit mx-auto md:mx-0 mb-1"
+              >
+                លទ្ធផលប្រណាំងល្បឿន
+              </span>
+              <h3
+                class="text-2xl font-extrabold text-slate-900 dark:text-white"
+              >
+                អស្ចារ្យណាស់! ការប្រកួតបានបញ្ចប់
+              </h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">
+                បន្តហ្វឹកហាត់ជារៀងរាល់ថ្ងៃដើម្បីបង្កើនល្បឿនវាយអក្សរខ្មែររបស់អ្នក
+              </p>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full md:w-auto">
+              <div
+                class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-xl text-center border border-slate-200/70 dark:border-slate-700"
+              >
+                <div class="text-xs text-slate-400 font-semibold">
+                  ល្បឿន (WPM)
+                </div>
+                <div
+                  id="res-wpm"
+                  class="text-2xl sm:text-3xl font-extrabold text-amber-500"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-xl text-center border border-slate-200/70 dark:border-slate-700"
+              >
+                <div class="text-xs text-slate-400 font-semibold">
+                  ភាពត្រឹមត្រូវ
+                </div>
+                <div
+                  id="res-acc"
+                  class="text-2xl sm:text-3xl font-extrabold text-emerald-500"
+                >
+                  100%
+                </div>
+              </div>
+              <div
+                class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-xl text-center border border-slate-200/70 dark:border-slate-700"
+              >
+                <div class="text-xs text-slate-400 font-semibold">
+                  តួអក្សរ/នាទី
+                </div>
+                <div
+                  id="res-cpm"
+                  class="text-2xl sm:text-3xl font-extrabold text-indigo-500"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="bg-slate-50 dark:bg-slate-800 p-3.5 rounded-xl text-center border border-slate-200/70 dark:border-slate-700"
+              >
+                <div class="text-xs text-slate-400 font-semibold">
+                  កំហុស (Errors)
+                </div>
+                <div
+                  id="res-err"
+                  class="text-2xl sm:text-3xl font-extrabold text-rose-500"
+                >
+                  0
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onclick="resetRace()"
+              class="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md shadow-amber-500/25 transition-all shrink-0"
+            >
+              <i class="fa-solid fa-play mr-1.5"></i> ប្រណាំងម្តងទៀត
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- MODE 3: 4 EDUCATIONAL KHMER TYPING GAMES HUB (ហ្គេមសិក្សាទាំង ៤)      -->
+      <!-- ===================================================================== -->
+      <section id="view-game" class="hidden flex-col gap-4">
+        <!-- Game Selector Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <button
+            type="button"
+            id="game-tab-temple"
+            onclick="selectArcadeGame('temple')"
+            class="arcade-tab-btn text-left p-3.5 rounded-2xl border-2 border-amber-500 bg-amber-50/80 dark:bg-amber-950/40 shadow-sm transition-all"
+          >
+            <div class="flex items-center justify-between mb-1">
+              <span
+                class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center text-sm"
+                ><i class="fa-solid fa-gopuram"></i
+              ></span>
+              <span
+                class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-200/70 dark:bg-amber-900 text-amber-800 dark:text-amber-200"
+                >ហ្គេមទី ១</span
+              >
+            </div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">
+              ការពារប្រាសាទអង្គរ
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">
+              Angkor Temple Defense
+            </div>
+          </button>
+
+          <button
+            type="button"
+            id="game-tab-lantern"
+            onclick="selectArcadeGame('lantern')"
+            class="arcade-tab-btn text-left p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-amber-400 transition-all"
+          >
+            <div class="flex items-center justify-between mb-1">
+              <span
+                class="w-8 h-8 rounded-xl bg-rose-500/15 text-rose-600 dark:text-rose-400 flex items-center justify-center text-sm"
+                ><i class="fa-solid fa-fire-flame-curved"></i
+              ></span>
+              <span
+                class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                >ហ្គេមទី ២</span
+              >
+            </div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">
+              បំផ្ទុះគោមភ្លើងខ្មែរ
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">
+              Khmer Sky Lanterns
+            </div>
+          </button>
+
+          <button
+            type="button"
+            id="game-tab-boat"
+            onclick="selectArcadeGame('boat')"
+            class="arcade-tab-btn text-left p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-amber-400 transition-all"
+          >
+            <div class="flex items-center justify-between mb-1">
+              <span
+                class="w-8 h-8 rounded-xl bg-sky-500/15 text-sky-600 dark:text-sky-400 flex items-center justify-center text-sm"
+                ><i class="fa-solid fa-ship"></i
+              ></span>
+              <span
+                class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                >ហ្គេមទី ៣</span
+              >
+            </div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">
+              ប្រណាំងទូកង
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">
+              Bon Om Touk Boat Race
+            </div>
+          </button>
+
+          <button
+            type="button"
+            id="game-tab-grid"
+            onclick="selectArcadeGame('grid')"
+            class="arcade-tab-btn text-left p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-amber-400 transition-all"
+          >
+            <div class="flex items-center justify-between mb-1">
+              <span
+                class="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-sm"
+                ><i class="fa-solid fa-table-cells-large"></i
+              ></span>
+              <span
+                class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                >ហ្គេមទី ៤</span
+              >
+            </div>
+            <div class="font-bold text-sm text-slate-900 dark:text-white">
+              ល្បែងចងចាំអក្សរ
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">
+              Khmer Flash Reflex Grid
+            </div>
+          </button>
+        </div>
+
+        <!-- Shared Game HUD & Difficulty Bar -->
+        <div
+          class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-3 sm:px-5 flex flex-wrap items-center justify-between gap-3 shadow-sm"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              id="arcade-hud-icon"
+              class="w-10 h-10 rounded-xl bg-amber-500/15 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg"
+            >
+              <i class="fa-solid fa-gopuram"></i>
+            </div>
+            <div>
+              <h2
+                id="arcade-hud-title"
+                class="font-bold text-sm sm:text-base text-slate-900 dark:text-white"
+              >
+                ការពារប្រាសាទអង្គរ (Angkor Temple Defense)
+              </h2>
+              <p
+                id="arcade-hud-desc"
+                class="text-xs text-slate-500 dark:text-slate-400"
+              >
+                វាយអក្សរ ឬពាក្យខ្មែរលើអាចម៍ផ្កាយមុនពេលវាធ្លាក់ដល់ប្រាសាទ!
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 sm:gap-4">
+            <select
+              id="game-difficulty"
+              class="bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-slate-200"
+            >
+              <option value="chars">កម្រិត ១: តួអក្សរខ្មែរ (Letters)</option>
+              <option value="syllables" selected>
+                កម្រិត ២: ព្យាង្គងាយៗ (Syllables)
+              </option>
+              <option value="words">កម្រិត ៣: ពាក្យខ្មែរ (Full Words)</option>
+            </select>
+
+            <div
+              class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl text-xs font-bold"
+            >
+              <span class="text-amber-600 dark:text-amber-400"
+                >ពិន្ទុ: <strong id="game-score-hud">0</strong></span
+              >
+              <span class="text-purple-600 dark:text-purple-400"
+                >Combo: <strong id="game-combo-hud">x1</strong></span
+              >
+              <span id="game-status-hud" class="text-rose-500">❤️❤️❤️❤️❤️</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Game Stage -->
+        <div
+          onclick="focusTypingInput()"
+          class="relative w-full h-[440px] sm:h-[500px] bg-slate-950 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-xl cursor-text"
+        >
+          <!-- Game 1 Canvas -->
+          <canvas id="canvas-temple" class="block w-full h-full"></canvas>
+
+          <!-- Game 2 Canvas -->
+          <canvas
+            id="canvas-lantern"
+            class="hidden block w-full h-full"
+          ></canvas>
+
+          <!-- Game 3 Canvas -->
+          <canvas id="canvas-boat" class="hidden block w-full h-full"></canvas>
+
+          <!-- Game 4 DOM Stage -->
+          <div
+            id="stage-reflex-grid"
+            class="hidden w-full h-full bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-950 p-4 sm:p-6 pb-20 flex flex-col justify-between"
+          >
+            <div
+              class="flex items-center justify-between text-xs sm:text-sm text-slate-300"
+            >
+              <span
+                ><i class="fa-solid fa-bolt text-amber-400 mr-1.5"></i
+                >វាយពាក្យខ្មែរណាមួយនៅលើកាតខាងក្រោមដើម្បីបំបែកកាត!</span
+              >
+              <span class="font-bold text-emerald-400"
+                >ជុំទី <span id="grid-round-num">1</span></span
+              >
+            </div>
+            <div
+              id="reflex-cards-container"
+              class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 my-auto"
+            >
+              <!-- 8 Cards -->
+            </div>
+          </div>
+
+          <!-- Active Typing Buffer Pill -->
+          <div
+            class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 pointer-events-none"
+          >
+            <div
+              id="game-typed-buffer"
+              class="min-w-[180px] h-11 px-5 rounded-full bg-slate-900/95 border-2 border-amber-400/80 text-amber-300 font-bold text-xl khmer-display flex items-center justify-center shadow-lg shadow-amber-500/20"
+            >
+              <span class="text-xs text-slate-400 font-sans"
+                >វាយអក្សរនៅទីនេះ...</span
+              >
+            </div>
+          </div>
+
+          <!-- Unified Start / Game Over Overlay -->
+          <div
+            id="game-overlay"
+            class="absolute inset-0 bg-slate-950/85 backdrop-blur-sm z-30 flex flex-col items-center justify-center p-6 text-center"
+          >
+            <div
+              id="game-overlay-icon"
+              class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-3xl mb-3 shadow-lg shadow-amber-500/30"
+            >
+              <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3
+              id="game-overlay-title"
+              class="text-2xl sm:text-3xl font-extrabold text-white mb-2"
+            >
+              ការពារប្រាសាទអង្គរ
+            </h3>
+            <p
+              id="game-overlay-desc"
+              class="text-sm text-slate-300 max-w-md mb-5"
+            >
+              វាយពាក្យ ឬតួអក្សរខ្មែរដែលកំពុងធ្លាក់ចុះ
+              ដើម្បីបាញ់កាំរស្មីការពារប្រាសាទ។ វាយត្រូវជាប់ៗគ្នាដើម្បីទទួលបាន
+              Combo!
+            </p>
+            <div id="game-final-stats" class="hidden flex gap-4 mb-5">
+              <div
+                class="bg-slate-900 border border-slate-700 px-4 py-2 rounded-xl"
+              >
+                <div class="text-[11px] text-slate-400">ពិន្ទុសរុប</div>
+                <div
+                  id="game-over-score"
+                  class="text-xl font-extrabold text-amber-400"
+                >
+                  0
+                </div>
+              </div>
+              <div
+                class="bg-slate-900 border border-slate-700 px-4 py-2 rounded-xl"
+              >
+                <div class="text-[11px] text-slate-400">ពិន្ទុខ្ពស់បំផុត</div>
+                <div
+                  id="game-over-best"
+                  class="text-xl font-extrabold text-emerald-400"
+                >
+                  0
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onclick="startCurrentArcadeGame()"
+              class="px-7 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-extrabold text-base shadow-lg shadow-amber-500/30 transform hover:scale-105 transition-all flex items-center gap-2"
+            >
+              <i class="fa-solid fa-play"></i>
+              <span id="game-start-btn-text">ចាប់ផ្តើមលេង (Start Game)</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Lesson Completion Modal -->
+    <div
+      id="lesson-modal"
+      class="hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 text-center shadow-2xl transform transition-all"
+      >
+        <div
+          class="w-16 h-16 rounded-2xl bg-amber-100 dark:bg-amber-900/40 text-amber-500 flex items-center justify-center text-3xl mx-auto mb-3"
+        >
+          <i class="fa-solid fa-award"></i>
+        </div>
+        <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white">
+          អបអរសាទរ! មេរៀនបានបញ្ចប់
+        </h3>
+        <p
+          id="modal-lesson-name"
+          class="text-sm text-slate-500 dark:text-slate-400 mt-1"
+        >
+          ជួរកណ្តាល (Home Row)
+        </p>
+
+        <div
+          id="modal-stars"
+          class="flex justify-center gap-2 text-3xl text-amber-400 my-4"
+        >
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl">
+            <div class="text-xs text-slate-400">ល្បឿន (WPM)</div>
+            <div
+              id="modal-wpm"
+              class="text-2xl font-extrabold text-amber-600 dark:text-amber-400"
+            >
+              0
+            </div>
+          </div>
+          <div class="bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl">
+            <div class="text-xs text-slate-400">ភាពត្រឹមត្រូវ</div>
+            <div
+              id="modal-acc"
+              class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400"
+            >
+              100%
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3">
+          <button
+            type="button"
+            onclick="
+              closeLessonModal();
+              resetCurrentLesson();
+            "
+            class="flex-1 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 font-bold text-sm text-slate-700 dark:text-slate-200"
+          >
+            ម្តងទៀត
+          </button>
+          <button
+            type="button"
+            onclick="
+              closeLessonModal();
+              nextLesson();
+            "
+            class="flex-1 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md shadow-amber-500/20"
+          >
+            មេរៀនបន្ទាប់ <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      /* ============================================================================
+           1. KHMER NiDA KEYBOARD MAPPING & VISUAL LAYOUT DATA
+           ============================================================================ */
+      const NIDA_KEY_MAP = {
+        "`": { normal: "«", shift: "»", label: "`", finger: "f-pinky-l" },
+        1: { normal: "១", shift: "!", label: "1", finger: "f-pinky-l" },
+        2: { normal: "២", shift: "ៗ", label: "2", finger: "f-ring-l" },
+        3: { normal: "៣", shift: '"', label: "3", finger: "f-mid-l" },
+        4: { normal: "៤", shift: "៛", label: "4", finger: "f-idx-l" },
+        5: { normal: "៥", shift: "%", label: "5", finger: "f-idx-l" },
+        6: { normal: "៦", shift: "៍", label: "6", finger: "f-idx-r" },
+        7: { normal: "៧", shift: "័", label: "7", finger: "f-idx-r" },
+        8: { normal: "៨", shift: "៏", label: "8", finger: "f-mid-r" },
+        9: { normal: "៩", shift: "(", label: "9", finger: "f-ring-r" },
+        0: { normal: "០", shift: ")", label: "0", finger: "f-pinky-r" },
+        "-": { normal: "ឥ", shift: "៌", label: "-", finger: "f-pinky-r" },
+        "=": { normal: "ឲ", shift: "=", label: "=", finger: "f-pinky-r" },
+
+        q: { normal: "ឆ", shift: "ឈ", label: "Q", finger: "f-pinky-l" },
+        w: { normal: "ឹ", shift: "ឺ", label: "W", finger: "f-ring-l" },
+        e: { normal: "េ", shift: "ែ", label: "E", finger: "f-mid-l" },
+        r: { normal: "រ", shift: "ឬ", label: "R", finger: "f-idx-l" },
+        t: { normal: "ត", shift: "ទ", label: "T", finger: "f-idx-l" },
+        y: { normal: "យ", shift: "ួ", label: "Y", finger: "f-idx-r" },
+        u: { normal: "ុ", shift: "ូ", label: "U", finger: "f-idx-r" },
+        i: { normal: "ិ", shift: "ី", label: "I", finger: "f-mid-r" },
+        o: { normal: "ោ", shift: "ៅ", label: "O", finger: "f-ring-r" },
+        p: { normal: "ផ", shift: "ភ", label: "P", finger: "f-pinky-r" },
+        "[": { normal: "ៀ", shift: "ឿ", label: "[", finger: "f-pinky-r" },
+        "]": { normal: "ឪ", shift: "ឧ", label: "]", finger: "f-pinky-r" },
+        "\\": { normal: "ឮ", shift: "ឭ", label: "\\", finger: "f-pinky-r" },
+
+        a: { normal: "ា", shift: "ាំ", label: "A", finger: "f-pinky-l" },
+        s: { normal: "ស", shift: "ៃ", label: "S", finger: "f-ring-l" },
+        d: { normal: "ដ", shift: "ឌ", label: "D", finger: "f-mid-l" },
+        f: { normal: "ថ", shift: "ធ", label: "F", finger: "f-idx-l" },
+        g: { normal: "ង", shift: "អ", label: "G", finger: "f-idx-l" },
+        h: { normal: "ហ", shift: "ះ", label: "H", finger: "f-idx-r" },
+        j: { normal: "្", shift: "ញ", label: "J", finger: "f-idx-r" },
+        k: { normal: "ក", shift: "គ", label: "K", finger: "f-mid-r" },
+        l: { normal: "ល", shift: "ឡ", label: "L", finger: "f-ring-r" },
+        ";": { normal: "ើ", shift: "ោះ", label: ";", finger: "f-pinky-r" },
+        "'": { normal: "់", shift: "៉", label: "'", finger: "f-pinky-r" },
+
+        z: { normal: "ឋ", shift: "ឍ", label: "Z", finger: "f-pinky-l" },
+        x: { normal: "ខ", shift: "ឃ", label: "X", finger: "f-ring-l" },
+        c: { normal: "ច", shift: "ជ", label: "C", finger: "f-mid-l" },
+        v: { normal: "វ", shift: "េះ", label: "V", finger: "f-idx-l" },
+        b: { normal: "ប", shift: "ព", label: "B", finger: "f-idx-l" },
+        n: { normal: "ន", shift: "ណ", label: "N", finger: "f-idx-r" },
+        m: { normal: "ម", shift: "ំ", label: "M", finger: "f-idx-r" },
+        ",": { normal: "ុំ", shift: "ុះ", label: ",", finger: "f-mid-r" },
+        ".": { normal: "។", shift: "៕", label: ".", finger: "f-ring-r" },
+        "/": { normal: "៊", shift: "?", label: "/", finger: "f-pinky-r" },
+      };
+
+      const FINGER_NAMES = {
+        "f-pinky-l": "កូនដៃឆ្វេង (Left Pinky)",
+        "f-ring-l": "នាងដៃឆ្វេង (Left Ring)",
+        "f-mid-l": "ម្រាមកណ្តាលឆ្វេង (Left Middle)",
+        "f-idx-l": "ម្រាមចង្អុលឆ្វេង (Left Index)",
+        "f-idx-r": "ម្រាមចង្អុលស្តាំ (Right Index)",
+        "f-mid-r": "ម្រាមកណ្តាលស្តាំ (Right Middle)",
+        "f-ring-r": "នាងដៃស្តាំ (Right Ring)",
+        "f-pinky-r": "កូនដៃស្តាំ (Right Pinky)",
+        "f-thumb": "មេដៃ (Thumb)",
+      };
+
+      const KHMER_TO_KEY = {};
+      Object.entries(NIDA_KEY_MAP).forEach(([code, data]) => {
+        if (data.normal && !KHMER_TO_KEY[data.normal]) {
+          KHMER_TO_KEY[data.normal] = {
+            code,
+            shift: false,
+            label: data.label,
+            finger: data.finger,
+          };
+        }
+        if (data.shift && !KHMER_TO_KEY[data.shift]) {
+          KHMER_TO_KEY[data.shift] = {
+            code,
+            shift: true,
+            label: data.label,
+            finger: data.finger,
+          };
+        }
+      });
+
+      const KEYBOARD_ROWS = [
+        ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="],
+        ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"],
+        ["a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'"],
+        [
+          "ShiftLeft",
+          "z",
+          "x",
+          "c",
+          "v",
+          "b",
+          "n",
+          "m",
+          ",",
+          ".",
+          "/",
+          "ShiftRight",
+        ],
+        [" "],
+      ];
+
+      /* ============================================================================
+           2. LESSONS & WORD BANKS DATA
+           ============================================================================ */
+      const LESSONS = [
+        {
+          id: 1,
+          cat: "basics",
+          tag: "មេរៀនទី ១",
+          title: "ជួរកណ្តាល - ផ្នែកទី ១ (Home Row Basics)",
+          desc: "ហ្វឹកហាត់តួអក្សរមូលដ្ឋានជួរកណ្តាល៖ ា ស ដ ថ ង និង ហ ក ល",
+          text: "ាសដថ ហកល ាសដថ ហកល ដថាស កលហ ដា សា ថាក លា សដថ ហកល",
+        },
+        {
+          id: 2,
+          cat: "basics",
+          tag: "មេរៀនទី ២",
+          title: "ជួរកណ្តាលពេញលេញ (Full Home Row)",
+          desc: "បន្ថែម ង ជើង (្) ស្រៈ ើ និងបន្តក់ (់)",
+          text: "ដង កង លង ហង សង ដា កា លា ហា សា ដើ កើ លើ ហើ ដក់ កក់ លក់ ហក់",
+        },
+        {
+          id: 3,
+          cat: "basics",
+          tag: "មេរៀនទី ៣",
+          title: "ជួរលើ - ព្យញ្ជនៈ និងស្រៈ (Top Row)",
+          desc: "ហ្វឹកហាត់ជួរលើ៖ ឆ ឹ េ រ ត យ ុ ិ ោ ផ",
+          text: "រត យផ ឆរត យុិោផ រេ តេ យេ ផេ រិ តិ យុ ផុ ឆា រា តា យា ផា",
+        },
+        {
+          id: 4,
+          cat: "basics",
+          tag: "មេរៀនទី ៤",
+          title: "ជួរក្រោម (Bottom Row)",
+          desc: "ហ្វឹកហាត់ជួរក្រោម៖ ឋ ខ ច វ ប ន ម ។",
+          text: "ខច វប នម ខចវប នម ខា ចា វា បា នា មា ចប នម ខច នម។",
+        },
+        {
+          id: 5,
+          cat: "shift",
+          tag: "មេរៀនទី ៥",
+          title: "អក្សរ Shift ជួរកណ្តាល (Shift Home Row)",
+          desc: "ប្រើគ្រាប់ចុច Shift ដើម្បីវាយ៖ ាំ ៃ ឌ ធ អ ះ ញ គ ឡ",
+          text: "ធអ ញគ ឡឌ ធា គា ញា ឡា អា ដាំ កាំ លាំ ហាំ ដៃ កៃ លៃ ហៃ គះ ធះ",
+        },
+        {
+          id: 6,
+          cat: "shift",
+          tag: "មេរៀនទី ៦",
+          title: "អក្សរ Shift ជួរលើ និងក្រោម (Shift Top & Bottom)",
+          desc: "ហ្វឹកហាត់៖ ឈ ឺ ែ ឬ ទ ួ ូ ី ៅ ភ ឃ ជ ព ណ ំ",
+          text: "ទព ជឃ ភឈ ណម ទា ពា ជា ឃា ភា ឈា ណា ទូ ពូ ជី ភី ឈឺ ទែ ពៅ ដំ កំ",
+        },
+        {
+          id: 7,
+          cat: "shift",
+          tag: "មេរៀនទី ៧",
+          title: "ជើងអក្សរខ្មែរ (Subscripts / Coeng ្)",
+          desc: "ចុច J (្) រួចចុចព្យញ្ជនៈដើម្បីបង្កើតជើងអក្សរ៖ ខ្មែរ ស្រុក ភ្នំ គ្រូ ស្អាត",
+          text: "ខ្មែរ ស្រុក ភ្នំ គ្រូ ស្អាត ក្មេង ផ្ទះ ថ្នាក់ ក្រុង ប្រាសាទ ស្ពាន ខ្លាំង",
+        },
+        {
+          id: 8,
+          cat: "basics",
+          tag: "មេរៀនទី ៨",
+          title: "លេខខ្មែរ និងសញ្ញា (Khmer Numbers & Symbols)",
+          desc: "ហ្វឹកហាត់វាយលេខខ្មែរ ១ ២ ៣ ៤ ៥ ៦ ៧ ៨ ៩ ០ និង ៛ ។",
+          text: "១២៣ ៤៥៦ ៧៨៩០ ឆ្នាំ ២០២៦ តម្លៃ ៥០០០៛ ថ្ងៃទី ១៥ ខែ ១១ ១០០%",
+        },
+        {
+          id: 9,
+          cat: "words",
+          tag: "មេរៀនទី ៩",
+          title: "ពាក្យប្រើប្រាស់ប្រចាំថ្ងៃ (Common Khmer Words)",
+          desc: "វាយពាក្យខ្មែរទូទៅឱ្យបានលឿន និងត្រឹមត្រូវ",
+          text: "សួស្តី អរគុណ សុខសប្បាយ សាលារៀន សៀវភៅ ប៊ិច ខ្មៅដៃ គ្រូបង្រៀន សិស្សានុសិស្ស ប្រទេសកម្ពុជា",
+        },
+        {
+          id: 10,
+          cat: "words",
+          tag: "មេរៀនទី ១០",
+          title: "សុភាសិតខ្មែរ (Khmer Proverbs)",
+          desc: "ហ្វឹកហាត់វាយប្រយោគវែងៗ និងសុភាសិតអប់រំ",
+          text: "ចេះមកពីរៀន មានមកពីរក។ ទំពាំងស្នងឫស្សី។ សាមគ្គីរស់ បែកបាក់សាមគ្គីស្លាប់។ ការសិក្សាគ្មានទីបញ្ចប់។",
+        },
+      ];
+
+      const KHMER_WORD_BANK = [
+        "កម្ពុជា",
+        "សួស្តី",
+        "អរគុណ",
+        "សាលារៀន",
+        "សៀវភៅ",
+        "គ្រូបង្រៀន",
+        "សិស្ស",
+        "ប្រាសាទ",
+        "អង្គរវត្ត",
+        "ភ្នំពេញ",
+        "ទន្លេសាប",
+        "មេគង្គ",
+        "វប្បធម៌",
+        "អរិយធម៌",
+        "ភាសាខ្មែរ",
+        "អក្សរសាស្ត្រ",
+        "ការសិក្សា",
+        "ចំណេះដឹង",
+        "បច្ចេកវិទ្យា",
+        "កុំព្យូទ័រ",
+        "អនាគត",
+        "ជោគជ័យ",
+        "ព្យាយាម",
+        "សាមគ្គី",
+        "មិត្តភក្តិ",
+        "គ្រួសារ",
+        "មាតាបិតា",
+        "សុភមង្គល",
+        "សន្តិភាព",
+        "អភិវឌ្ឍន៍",
+        "សេដ្ឋកិច្ច",
+        "ទេសចរណ៍",
+        "ធម្មជាតិ",
+        "ព្រៃឈើ",
+        "ទឹកជ្រោះ",
+        "សមុទ្រ",
+        "កំពង់សោម",
+        "សៀមរាប",
+        "បាត់ដំបង",
+        "កំពត",
+        "កែប",
+        "មណ្ឌលគិរី",
+        "រតនគិរី",
+        "ព្រះវិហារ",
+        "ស្ទឹងត្រែង",
+        "ក្រចេះ",
+        "កំពង់ចាម",
+        "តាកែវ",
+        "ផ្កាឈូក",
+        "រំដួល",
+        "ត្នោត",
+        "អង្ករ",
+        "ម្លិះ",
+        "ប្រាជ្ញា",
+        "គំនិត",
+        "សីលធម៌",
+        "គុណធម៌",
+        "វិន័យ",
+      ];
+
+      const KHMER_SYLLABLES = [
+        "កា",
+        "កី",
+        "កុ",
+        "កូ",
+        "កេ",
+        "កែ",
+        "កៃ",
+        "កោ",
+        "កៅ",
+        "កំ",
+        "ខា",
+        "ខី",
+        "ខុ",
+        "ខេ",
+        "ខោ",
+        "គា",
+        "គី",
+        "គូ",
+        "គេ",
+        "គោ",
+        "ងា",
+        "ងី",
+        "ងុ",
+        "ងេ",
+        "ងោ",
+        "ចា",
+        "ចី",
+        "ចុ",
+        "ចេ",
+        "ចោ",
+        "ឆា",
+        "ឆី",
+        "ឆេ",
+        "ឆោ",
+        "ជា",
+        "ជី",
+        "ជូ",
+        "ជេ",
+        "ជោ",
+        "ញា",
+        "ដា",
+        "ដី",
+        "ដុ",
+        "ដេ",
+        "ដោ",
+        "តា",
+        "តី",
+        "តុ",
+        "តេ",
+        "តោ",
+        "ថា",
+        "ថី",
+        "ថុ",
+        "ថេ",
+        "ថោ",
+        "ទា",
+        "ទី",
+        "ទូ",
+        "ទេ",
+        "ទោ",
+        "នា",
+        "នី",
+        "នុ",
+        "នេ",
+        "នោ",
+        "បា",
+        "បី",
+        "បុ",
+        "បេ",
+        "បោ",
+        "ផា",
+        "ផី",
+        "ផុ",
+        "ផេ",
+        "ផោ",
+        "ពា",
+        "ពី",
+        "ពូ",
+        "ពេ",
+        "ពោ",
+        "មា",
+        "មី",
+        "មុ",
+        "មេ",
+        "មោ",
+        "យា",
+        "យី",
+        "យុ",
+        "យេ",
+        "យោ",
+        "រា",
+        "រី",
+        "រុ",
+        "រេ",
+        "រោ",
+        "លា",
+        "លី",
+        "លុ",
+        "លេ",
+        "លោ",
+        "វា",
+        "វី",
+        "វុ",
+        "វេ",
+        "វោ",
+        "សា",
+        "សី",
+        "សុ",
+        "សេ",
+        "សោ",
+      ];
+
+      const KHMER_SINGLE_CHARS = [
+        "ក",
+        "ខ",
+        "គ",
+        "ឃ",
+        "ង",
+        "ច",
+        "ឆ",
+        "ជ",
+        "ឈ",
+        "ញ",
+        "ដ",
+        "ឋ",
+        "ឌ",
+        "ឍ",
+        "ណ",
+        "ត",
+        "ថ",
+        "ទ",
+        "ធ",
+        "ន",
+        "ប",
+        "ផ",
+        "ព",
+        "ភ",
+        "ម",
+        "យ",
+        "រ",
+        "ល",
+        "វ",
+        "ស",
+        "ហ",
+        "ឡ",
+        "អ",
+        "ា",
+        "ិ",
+        "ី",
+        "ឹ",
+        "ឺ",
+        "ុ",
+        "ូ",
+        "េ",
+        "ែ",
+        "ៃ",
+        "ោ",
+        "ៅ",
+        "ំ",
+      ];
+
+      /* ============================================================================
+           3. GLOBAL APPLICATION STATE
+           ============================================================================ */
+      const state = {
+        mode: "lessons",
+        nidaAutoMap: true,
+        soundEnabled: true,
+        darkMode: false,
+
+        progress: {
+          completedLessons: {},
+          bestRaceWpm: 0,
+          gameHighScore: 0,
+        },
+
+        // Lesson Mode State
+        lessonFilter: "all",
+        currentLessonIdx: 0,
+        lessonTyped: "",
+        lessonErrors: 0,
+        lessonStartTime: null,
+        lessonTimerInterval: null,
+
+        // Race Mode State
+        raceMode: "time",
+        raceValue: 30,
+        raceWords: [],
+        raceWordIndex: 0,
+        raceCurrentInput: "",
+        raceStarted: false,
+        raceFinished: false,
+        raceTimeLeft: 30,
+        raceElapsed: 0,
+        raceCorrectChars: 0,
+        raceTotalTypedChars: 0,
+        raceErrors: 0,
+        raceTimerInterval: null,
+
+        // Arcade Games State
+        activeArcadeGame: "temple",
+        gameRunning: false,
+        gameScore: 0,
+        gameCombo: 1,
+        gameLives: 5,
+        gameTypedBuffer: "",
+        gameAnimFrame: null,
+        gameTimerInterval: null,
+
+        templeMeteors: [],
+        templeLasers: [],
+        templeParticles: [],
+        templeLastSpawn: 0,
+        templeSpawnRate: 2300,
+
+        lanterns: [],
+        lanternPops: [],
+        lanternLastSpawn: 0,
+        lanternFreezeUntil: 0,
+
+        boatPlayers: [],
+        boatTargetWord: "",
+        boatDistance: 1000,
+        boatWaterOffset: 0,
+
+        gridCards: [],
+        gridRound: 1,
+        gridTimeLeft: 45,
+      };
+
+      try {
+        const saved = localStorage.getItem("khmer_typing_master_v2");
+        if (saved) state.progress = { ...state.progress, ...JSON.parse(saved) };
+        if (localStorage.getItem("ktm_theme") === "dark") {
+          state.darkMode = true;
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+
+      function saveProgress() {
+        try {
+          localStorage.setItem(
+            "khmer_typing_master_v2",
+            JSON.stringify(state.progress),
+          );
+        } catch (e) {}
+        updateHeaderStats();
+      }
+
+      /* ============================================================================
+           4. WEB AUDIO SOUND SYNTHESIZER
+           ============================================================================ */
+      let audioCtx = null;
+      function playSound(type) {
+        if (!state.soundEnabled) return;
+        if (!audioCtx) {
+          const AudioContextClass =
+            window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (!audioCtx) return;
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        if (type === "key") {
+          osc.type = "sine";
+          osc.frequency.setValueAtTime(520, now);
+          osc.frequency.exponentialRampToValueAtTime(220, now + 0.045);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === "error") {
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(165, now);
+          osc.frequency.linearRampToValueAtTime(115, now + 0.12);
+          gain.gain.setValueAtTime(0.14, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
+          osc.start(now);
+          osc.stop(now + 0.14);
+        } else if (type === "laser") {
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(880, now);
+          osc.frequency.exponentialRampToValueAtTime(180, now + 0.18);
+          gain.gain.setValueAtTime(0.12, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.19);
+          osc.start(now);
+          osc.stop(now + 0.2);
+        } else if (type === "success") {
+          [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.connect(g);
+            g.connect(audioCtx.destination);
+            o.type = "sine";
+            o.frequency.setValueAtTime(freq, now + idx * 0.07);
+            g.gain.setValueAtTime(0.1, now + idx * 0.07);
+            g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.25);
+            o.start(now + idx * 0.07);
+            o.stop(now + idx * 0.07 + 0.26);
+          });
+        }
+      }
+
+      /* ============================================================================
+           5. NAVIGATION, THEME & GLOBAL INPUT CAPTURE
+           ============================================================================ */
+      function switchMode(newMode) {
+        state.mode = newMode;
+        ["lessons", "race", "game"].forEach((m) => {
+          const sec = document.getElementById(`view-${m}`);
+          const btn = document.getElementById(`nav-${m}`);
+          if (!sec || !btn) return;
+          if (m === newMode) {
+            sec.classList.remove("hidden");
+            sec.classList.add("flex");
+            btn.classList.add(
+              "bg-white",
+              "dark:bg-slate-700",
+              "text-amber-600",
+              "dark:text-amber-400",
+              "shadow-sm",
+            );
+            btn.classList.remove("text-slate-600", "dark:text-slate-300");
+          } else {
+            sec.classList.add("hidden");
+            sec.classList.remove("flex");
+            btn.classList.remove(
+              "bg-white",
+              "dark:bg-slate-700",
+              "text-amber-600",
+              "dark:text-amber-400",
+              "shadow-sm",
+            );
+            btn.classList.add("text-slate-600", "dark:text-slate-300");
+          }
+        });
+
+        if (newMode !== "game" && state.gameRunning) {
+          stopAllArcadeGames();
+        }
+        if (newMode === "race") {
+          resetRace();
+        }
+        if (newMode === "game") {
+          selectArcadeGame(state.activeArcadeGame);
+        }
+        focusTypingInput();
+      }
+
+      function toggleNidaAutoMap() {
+        state.nidaAutoMap = !state.nidaAutoMap;
+        const btn = document.getElementById("toggle-nida-btn");
+        const badge = document.getElementById("nida-status-badge");
+        if (state.nidaAutoMap) {
+          badge.textContent = "ON";
+          btn.className =
+            "flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all bg-emerald-50 border-emerald-200 text-emerald-700 dark:bg-emerald-950/60 dark:border-emerald-800 dark:text-emerald-300";
+        } else {
+          badge.textContent = "OFF";
+          btn.className =
+            "flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all bg-slate-100 border-slate-200 text-slate-600 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-400";
+        }
+        focusTypingInput();
+      }
+
+      function toggleSound() {
+        state.soundEnabled = !state.soundEnabled;
+        document.getElementById("sound-icon").className = state.soundEnabled
+          ? "fa-solid fa-volume-high"
+          : "fa-solid fa-volume-xmark text-slate-400";
+        focusTypingInput();
+      }
+
+      function toggleTheme() {
+        state.darkMode = !state.darkMode;
+        document.documentElement.classList.toggle("dark", state.darkMode);
+        document.getElementById("theme-icon").className = state.darkMode
+          ? "fa-solid fa-sun text-amber-400"
+          : "fa-solid fa-moon";
+        try {
+          localStorage.setItem("ktm_theme", state.darkMode ? "dark" : "light");
+        } catch (e) {}
+        focusTypingInput();
+      }
+
+      function updateHeaderStats() {
+        let totalStars = 0;
+        Object.values(state.progress.completedLessons).forEach((item) => {
+          totalStars += item.stars || 0;
+        });
+        document.getElementById("header-total-stars").textContent =
+          `${totalStars} / ${LESSONS.length * 3}`;
+        document.getElementById("header-best-wpm").textContent =
+          `${state.progress.bestRaceWpm} WPM`;
+        document.getElementById("theme-icon").className = state.darkMode
+          ? "fa-solid fa-sun text-amber-400"
+          : "fa-solid fa-moon";
+      }
+
+      function focusTypingInput() {
+        const inp = document.getElementById("global-typing-input");
+        if (inp) inp.focus();
+        document.getElementById("lesson-focus-hint")?.classList.add("hidden");
+      }
+
+      document
+        .getElementById("global-typing-input")
+        .addEventListener("blur", () => {
+          if (
+            state.mode === "lessons" &&
+            document.getElementById("lesson-modal").classList.contains("hidden")
+          ) {
+            document
+              .getElementById("lesson-focus-hint")
+              ?.classList.remove("hidden");
+          }
+        });
+
+      window.addEventListener("keydown", (e) => {
+        if (
+          document.activeElement &&
+          document.activeElement.tagName === "SELECT"
+        )
+          return;
+        highlightPhysicalKeyPress(e.key, true);
+
+        if (e.key === "Backspace") {
+          e.preventDefault();
+          handleBackspaceInput();
+          return;
+        }
+
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
+        if (e.key.length !== 1) return;
+
+        e.preventDefault();
+        let charToEmit = e.key;
+
+        if (state.nidaAutoMap) {
+          const lower = e.key.toLowerCase();
+          if (NIDA_KEY_MAP[lower]) {
+            charToEmit = e.shiftKey
+              ? NIDA_KEY_MAP[lower].shift
+              : NIDA_KEY_MAP[lower].normal;
+          }
+        }
+
+        dispatchTypedCharacter(charToEmit);
+      });
+
+      window.addEventListener("keyup", (e) => {
+        highlightPhysicalKeyPress(e.key, false);
+      });
+
+      document
+        .getElementById("global-typing-input")
+        .addEventListener("input", (e) => {
+          const val = e.target.value;
+          if (val && val.length > 0) {
+            for (const ch of val) {
+              dispatchTypedCharacter(ch);
+            }
+            e.target.value = "";
+          }
+        });
+
+      function dispatchTypedCharacter(char) {
+        if (state.mode === "lessons") handleLessonChar(char);
+        else if (state.mode === "race") handleRaceChar(char);
+        else if (state.mode === "game") handleGameChar(char);
+      }
+
+      function handleBackspaceInput() {
+        if (state.mode === "lessons") {
+          if (state.lessonTyped.length > 0) {
+            state.lessonTyped = state.lessonTyped.slice(0, -1);
+            renderLessonText();
+            updateNextKeyHint();
+          }
+        } else if (state.mode === "race") {
+          if (!state.raceFinished && state.raceCurrentInput.length > 0) {
+            state.raceCurrentInput = state.raceCurrentInput.slice(0, -1);
+            renderRaceWords();
+          }
+        } else if (state.mode === "game") {
+          if (state.gameRunning && state.gameTypedBuffer.length > 0) {
+            state.gameTypedBuffer = state.gameTypedBuffer.slice(0, -1);
+            updateGameBufferUI();
+          }
+        }
+      }
+
+      /* ============================================================================
+           6. VISUAL KHMER NiDA KEYBOARD BUILDER
+           ============================================================================ */
+      function buildVisualKeyboard() {
+        const container = document.getElementById("virtual-keyboard");
+        if (!container) return;
+        container.innerHTML = "";
+
+        KEYBOARD_ROWS.forEach((rowKeys) => {
+          const rowDiv = document.createElement("div");
+          rowDiv.className = "flex justify-center gap-1.5 w-full";
+
+          rowKeys.forEach((keyCode) => {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.dataset.key = keyCode;
+
+            if (keyCode === "ShiftLeft" || keyCode === "ShiftRight") {
+              btn.className =
+                "k-key flex-1 max-w-[115px] h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-300 f-pinky-l";
+              btn.innerHTML = '<i class="fa-solid fa-arrow-up mr-1"></i> Shift';
+              btn.onclick = () => focusTypingInput();
+            } else if (keyCode === " ") {
+              btn.className =
+                "k-key w-72 h-11 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-xs font-bold text-slate-500 dark:text-slate-400 f-thumb";
+              btn.textContent = "ដកឃ្លា (Space)";
+              btn.onclick = () => {
+                focusTypingInput();
+                dispatchTypedCharacter(" ");
+              };
+            } else {
+              const info = NIDA_KEY_MAP[keyCode];
+              btn.className = `k-key flex-1 max-w-[62px] h-12 rounded-xl bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 p-1.5 flex flex-col justify-between relative ${info.finger}`;
+              btn.innerHTML = `
+                            <div class="flex justify-between items-start w-full leading-none">
+                                <span class="text-[11px] font-semibold text-purple-600 dark:text-purple-400 khmer-display">${info.shift}</span>
+                                <span class="text-[9px] font-mono text-slate-400">${info.label}</span>
+                            </div>
+                            <div class="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 leading-none self-center khmer-display">
+                                ${info.normal}
+                            </div>
+                        `;
+              btn.onclick = () => {
+                focusTypingInput();
+                dispatchTypedCharacter(info.normal);
+              };
+            }
+            rowDiv.appendChild(btn);
+          });
+          container.appendChild(rowDiv);
+        });
+      }
+
+      function highlightPhysicalKeyPress(rawKey, isDown) {
+        const lower = rawKey.toLowerCase();
+        const selector =
+          rawKey === "Shift"
+            ? '[data-key="ShiftLeft"], [data-key="ShiftRight"]'
+            : `[data-key="${CSS.escape(lower)}"]`;
+        document.querySelectorAll(selector).forEach((el) => {
+          if (isDown) el.classList.add("pressed");
+          else el.classList.remove("pressed");
+        });
+      }
+
+      function highlightTargetKey(targetChar) {
+        document
+          .querySelectorAll(".key-target")
+          .forEach((el) => el.classList.remove("key-target"));
+        const shiftBadge = document.getElementById("shift-indicator-badge");
+        if (shiftBadge) shiftBadge.classList.add("hidden");
+
+        if (!targetChar) return;
+        if (targetChar === " ") {
+          const spaceKey = document.querySelector('[data-key=" "]');
+          if (spaceKey) spaceKey.classList.add("key-target");
+          return;
+        }
+
+        const mapping = KHMER_TO_KEY[targetChar];
+        if (mapping) {
+          const keyEl = document.querySelector(
+            `[data-key="${CSS.escape(mapping.code)}"]`,
+          );
+          if (keyEl) keyEl.classList.add("key-target");
+          if (mapping.shift && shiftBadge) {
+            shiftBadge.classList.remove("hidden");
+            document
+              .querySelectorAll(
+                '[data-key="ShiftLeft"], [data-key="ShiftRight"]',
+              )
+              .forEach((el) => el.classList.add("key-target"));
+          }
+        }
+      }
+
+      /* ============================================================================
+           7. MODE 1: LESSONS LOGIC
+           ============================================================================ */
+      function renderLessonList() {
+        const container = document.getElementById("lesson-list-container");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const filtered = LESSONS.filter(
+          (l) => state.lessonFilter === "all" || l.cat === state.lessonFilter,
+        );
+        const completedCount = Object.keys(
+          state.progress.completedLessons,
+        ).length;
+        document.getElementById("lesson-progress-badge").textContent =
+          `${completedCount}/${LESSONS.length} បញ្ចប់`;
+
+        filtered.forEach((lesson) => {
+          const realIdx = LESSONS.findIndex((item) => item.id === lesson.id);
+          const isActive = realIdx === state.currentLessonIdx;
+          const doneData = state.progress.completedLessons[lesson.id];
+
+          const card = document.createElement("button");
+          card.type = "button";
+          card.onclick = () => selectLesson(realIdx);
+          card.className = `w-full text-left p-3 rounded-xl border transition-all flex items-center justify-between gap-2 ${
+            isActive
+              ? "bg-amber-50 dark:bg-amber-950/40 border-amber-400 dark:border-amber-600 shadow-sm"
+              : "bg-slate-50/70 dark:bg-slate-800/50 border-slate-200/80 dark:border-slate-800 hover:border-amber-300"
+          }`;
+
+          let starsHtml = "";
+          if (doneData) {
+            for (let i = 1; i <= 3; i++) {
+              starsHtml += `<i class="fa-solid fa-star text-[11px] ${i <= doneData.stars ? "text-amber-400" : "text-slate-300 dark:text-slate-600"}"></i>`;
+            }
+          } else {
+            starsHtml =
+              '<span class="text-[11px] text-slate-400">មិនទាន់រៀន</span>';
+          }
+
+          card.innerHTML = `
+                    <div class="min-w-0">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[11px] font-bold text-amber-600 dark:text-amber-400">${lesson.tag}</span>
+                            ${doneData ? '<i class="fa-solid fa-circle-check text-emerald-500 text-xs"></i>' : ""}
+                        </div>
+                        <div class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 truncate">${lesson.title}</div>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">${starsHtml}</div>
+                `;
+          container.appendChild(card);
+        });
+      }
+
+      function filterLessons(cat) {
+        state.lessonFilter = cat;
+        document.querySelectorAll(".lesson-cat-btn").forEach((btn) => {
+          if (btn.dataset.cat === cat) {
+            btn.className =
+              "lesson-cat-btn px-2.5 py-1 rounded-lg font-semibold bg-amber-500 text-white shrink-0";
+          } else {
+            btn.className =
+              "lesson-cat-btn px-2.5 py-1 rounded-lg font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 shrink-0";
+          }
+        });
+        renderLessonList();
+      }
+
+      function selectLesson(idx) {
+        state.currentLessonIdx = idx;
+        resetCurrentLesson();
+        renderLessonList();
+      }
+
+      function prevLesson() {
+        if (state.currentLessonIdx > 0)
+          selectLesson(state.currentLessonIdx - 1);
+      }
+
+      function nextLesson() {
+        if (state.currentLessonIdx < LESSONS.length - 1)
+          selectLesson(state.currentLessonIdx + 1);
+      }
+
+      function resetCurrentLesson() {
+        const lesson = LESSONS[state.currentLessonIdx];
+        state.lessonTyped = "";
+        state.lessonErrors = 0;
+        state.lessonStartTime = null;
+        if (state.lessonTimerInterval) clearInterval(state.lessonTimerInterval);
+
+        document.getElementById("current-lesson-tag").textContent = lesson.tag;
+        document.getElementById("current-lesson-title").textContent =
+          lesson.title;
+        document.getElementById("current-lesson-desc").textContent =
+          lesson.desc;
+        document.getElementById("lesson-wpm").textContent = "0";
+        document.getElementById("lesson-acc").textContent = "100%";
+        document.getElementById("lesson-progress-bar").style.width = "0%";
+
+        renderLessonText();
+        updateNextKeyHint();
+        focusTypingInput();
+      }
+
+      function renderLessonText() {
+        const lesson = LESSONS[state.currentLessonIdx];
+        const target = lesson.text;
+        const typed = state.lessonTyped;
+        const container = document.getElementById("lesson-text-display");
+        if (!container) return;
+
+        let html = "";
+        let globalIndex = 0;
+        const tokens = target.split(" ");
+
+        tokens.forEach((word, wIdx) => {
+          html += '<span class="inline-block whitespace-nowrap">';
+          for (let i = 0; i < word.length; i++) {
+            const ch = word[i];
+            const idx = globalIndex;
+            if (idx < typed.length) {
+              const isMatch = typed[idx] === ch;
+              html += `<span class="${isMatch ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 bg-rose-100 dark:bg-rose-950/80 rounded"}">${ch}</span>`;
+            } else if (idx === typed.length) {
+              html += `<span class="bg-amber-200/80 dark:bg-amber-500/30 text-amber-900 dark:text-amber-200 border-b-2 border-amber-500 rounded-sm px-0.5">${ch}</span>`;
+            } else {
+              html += `<span class="text-slate-400 dark:text-slate-500">${ch}</span>`;
+            }
+            globalIndex++;
+          }
+          html += "</span>";
+
+          if (wIdx < tokens.length - 1) {
+            const idx = globalIndex;
+            if (idx < typed.length) {
+              const isMatch = typed[idx] === " ";
+              html += `<span class="inline-block w-3 ${isMatch ? "" : "bg-rose-300 rounded"}">&nbsp;</span>`;
+            } else if (idx === typed.length) {
+              html += `<span class="inline-block w-3 bg-amber-300/70 border-b-2 border-amber-500 rounded-sm">&nbsp;</span>`;
+            } else {
+              html += `<span class="inline-block w-3">&nbsp;</span>`;
+            }
+            globalIndex++;
+          }
+        });
+
+        container.innerHTML = html;
+        const pct = Math.min(
+          100,
+          Math.round((typed.length / target.length) * 100),
+        );
+        document.getElementById("lesson-progress-bar").style.width = `${pct}%`;
+      }
+
+      function updateNextKeyHint() {
+        const lesson = LESSONS[state.currentLessonIdx];
+        const nextChar = lesson.text[state.lessonTyped.length];
+        const box = document.getElementById("next-char-box");
+        const inst = document.getElementById("next-key-instruction");
+
+        if (!nextChar) {
+          box.textContent = "✓";
+          inst.textContent = "រួចរាល់!";
+          highlightTargetKey(null);
+          return;
+        }
+
+        highlightTargetKey(nextChar);
+
+        if (nextChar === " ") {
+          box.textContent = "␣";
+          inst.innerHTML = `ចុចគ្រាប់ចុច <span class="px-2 py-0.5 rounded bg-amber-200/70 dark:bg-amber-900/60 font-mono">Spacebar</span> (មេដៃ)`;
+          return;
+        }
+
+        box.textContent = nextChar === "្" ? "្ (ជើង)" : nextChar;
+        const mapping = KHMER_TO_KEY[nextChar];
+        if (mapping) {
+          const shiftText = mapping.shift
+            ? '<span class="px-1.5 py-0.5 rounded bg-purple-200 dark:bg-purple-900 text-purple-800 dark:text-purple-200 font-mono">Shift</span> + '
+            : "";
+          const coengNote =
+            nextChar === "្" ? " <em>(បង្កើតជើងអក្សរ)</em>" : "";
+          inst.innerHTML = `ចុច ${shiftText}<span class="px-2 py-0.5 rounded bg-amber-200/70 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 font-mono">${mapping.label}</span> — ${FINGER_NAMES[mapping.finger]}${coengNote}`;
+        } else {
+          inst.textContent = `វាយតួអក្សរ "${nextChar}"`;
+        }
+      }
+
+      function handleLessonChar(char) {
+        const lesson = LESSONS[state.currentLessonIdx];
+        const target = lesson.text;
+        if (state.lessonTyped.length >= target.length) return;
+
+        if (!state.lessonStartTime) {
+          state.lessonStartTime = Date.now();
+          state.lessonTimerInterval = setInterval(updateLessonLiveMetrics, 400);
+        }
+
+        const expected = target[state.lessonTyped.length];
+        if (char === expected) {
+          playSound("key");
+        } else {
+          playSound("error");
+          state.lessonErrors++;
+        }
+
+        state.lessonTyped += char;
+        renderLessonText();
+        updateNextKeyHint();
+        updateLessonLiveMetrics();
+
+        if (state.lessonTyped.length === target.length) {
+          finishLesson();
+        }
+      }
+
+      function updateLessonLiveMetrics() {
+        if (!state.lessonStartTime) return { wpm: 0, acc: 100 };
+        const mins = Math.max(
+          (Date.now() - state.lessonStartTime) / 60000,
+          0.01,
+        );
+        const wpm = Math.round(state.lessonTyped.length / 5 / mins);
+        const totalAttempts = state.lessonTyped.length + state.lessonErrors;
+        const acc =
+          totalAttempts > 0
+            ? Math.max(
+                0,
+                Math.round(
+                  ((totalAttempts - state.lessonErrors) / totalAttempts) * 100,
+                ),
+              )
+            : 100;
+
+        document.getElementById("lesson-wpm").textContent = wpm;
+        document.getElementById("lesson-acc").textContent = `${acc}%`;
+        return { wpm, acc };
+      }
+
+      function finishLesson() {
+        clearInterval(state.lessonTimerInterval);
+        playSound("success");
+        const { wpm, acc } = updateLessonLiveMetrics();
+        const lesson = LESSONS[state.currentLessonIdx];
+
+        let stars = 1;
+        if (acc >= 95 && wpm >= 18) stars = 3;
+        else if (acc >= 85) stars = 2;
+
+        const prev = state.progress.completedLessons[lesson.id];
+        state.progress.completedLessons[lesson.id] = {
+          stars: Math.max(stars, prev ? prev.stars : 0),
+          bestWpm: Math.max(wpm, prev ? prev.bestWpm : 0),
+        };
+        saveProgress();
+        renderLessonList();
+
+        document.getElementById("modal-lesson-name").textContent =
+          `${lesson.tag}: ${lesson.title}`;
+        document.getElementById("modal-wpm").textContent = wpm;
+        document.getElementById("modal-acc").textContent = `${acc}%`;
+        let starIcons = "";
+        for (let i = 1; i <= 3; i++) {
+          starIcons += `<i class="fa-solid fa-star ${i <= stars ? "text-amber-400" : "text-slate-300 dark:text-slate-700"}"></i>`;
+        }
+        document.getElementById("modal-stars").innerHTML = starIcons;
+        document.getElementById("lesson-modal").classList.remove("hidden");
+      }
+
+      function closeLessonModal() {
+        document.getElementById("lesson-modal").classList.add("hidden");
+        focusTypingInput();
+      }
+
+      /* ============================================================================
+           8. MODE 2: MONKEYTYPE-STYLE SPEED RACE LOGIC
+           ============================================================================ */
+      function setRaceMode(mode) {
+        state.raceMode = mode;
+        const timeBtn = document.getElementById("race-mode-time");
+        const wordsBtn = document.getElementById("race-mode-words");
+        const subOpts = document.getElementById("race-suboptions");
+
+        if (mode === "time") {
+          timeBtn.className =
+            "px-3 py-1.5 rounded-lg font-semibold bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow-sm";
+          wordsBtn.className =
+            "px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300";
+          subOpts.innerHTML = `
+                    <button type="button" onclick="setRaceValue(15)" class="race-val-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 dark:text-slate-300" data-val="15">15s</button>
+                    <button type="button" onclick="setRaceValue(30)" class="race-val-btn px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-white" data-val="30">30s</button>
+                    <button type="button" onclick="setRaceValue(60)" class="race-val-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 dark:text-slate-300" data-val="60">60s</button>
+                `;
+          state.raceValue = 30;
+        } else {
+          wordsBtn.className =
+            "px-3 py-1.5 rounded-lg font-semibold bg-white dark:bg-slate-700 text-amber-600 dark:text-amber-400 shadow-sm";
+          timeBtn.className =
+            "px-3 py-1.5 rounded-lg font-semibold text-slate-600 dark:text-slate-300";
+          subOpts.innerHTML = `
+                    <button type="button" onclick="setRaceValue(10)" class="race-val-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 dark:text-slate-300" data-val="10">10 ពាក្យ</button>
+                    <button type="button" onclick="setRaceValue(25)" class="race-val-btn px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-white" data-val="25">25 ពាក្យ</button>
+                    <button type="button" onclick="setRaceValue(50)" class="race-val-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 dark:text-slate-300" data-val="50">50 ពាក្យ</button>
+                `;
+          state.raceValue = 25;
+        }
+        resetRace();
+      }
+
+      function setRaceValue(val) {
+        state.raceValue = val;
+        document.querySelectorAll(".race-val-btn").forEach((btn) => {
+          if (Number(btn.dataset.val) === val) {
+            btn.className =
+              "race-val-btn px-2.5 py-1 rounded-lg font-bold bg-amber-500 text-white";
+          } else {
+            btn.className =
+              "race-val-btn px-2.5 py-1 rounded-lg font-bold text-slate-600 dark:text-slate-300";
+          }
+        });
+        resetRace();
+      }
+
+      function generateRaceWords(count) {
+        const list = [];
+        for (let i = 0; i < count; i++) {
+          list.push(
+            KHMER_WORD_BANK[Math.floor(Math.random() * KHMER_WORD_BANK.length)],
+          );
+        }
+        return list;
+      }
+
+      function resetRace() {
+        clearInterval(state.raceTimerInterval);
+
+        const wordCount = state.raceMode === "words" ? state.raceValue : 65;
+        state.raceWords = generateRaceWords(wordCount);
+        state.raceWordIndex = 0;
+        state.raceCurrentInput = "";
+        state.raceStarted = false;
+        state.raceFinished = false;
+        state.raceTimeLeft = state.raceMode === "time" ? state.raceValue : 0;
+        state.raceElapsed = 0;
+        state.raceCorrectChars = 0;
+        state.raceTotalTypedChars = 0;
+        state.raceErrors = 0;
+
+        document.getElementById("race-result-panel").classList.add("hidden");
+        document.getElementById("race-timer-display").textContent =
+          state.raceMode === "time" ? state.raceValue : `0/${state.raceValue}`;
+        document.getElementById("race-timer-unit").textContent =
+          state.raceMode === "time" ? "វិនាទី" : "ពាក្យ";
+        document.getElementById("race-live-wpm").textContent = "0";
+        document.getElementById("race-live-acc").textContent = "100%";
+        document.getElementById("race-player-bar").style.width = "0%";
+        document.getElementById("race-player-wpm-badge").textContent = "0 WPM";
+        document.getElementById("race-bot-bar").style.width = "0%";
+
+        const botWpm = Number(document.getElementById("race-bot-select").value);
+        const botLane = document.getElementById("race-bot-lane");
+        if (botWpm === 0) {
+          botLane.classList.add("hidden");
+        } else {
+          botLane.classList.remove("hidden");
+          document.getElementById("race-bot-name").textContent =
+            `Bot (${botWpm} WPM)`;
+          document.getElementById("race-bot-wpm-badge").textContent =
+            `${botWpm} WPM`;
+        }
+
+        renderRaceWords();
+        focusTypingInput();
+      }
+
+      function renderRaceWords() {
+        const container = document.getElementById("race-words-container");
+        if (!container) return;
+        let html = "";
+
+        state.raceWords.forEach((word, wIdx) => {
+          if (wIdx < state.raceWordIndex) {
+            html += `<span class="text-emerald-600 dark:text-emerald-400 opacity-85">${word}</span>`;
+          } else if (wIdx === state.raceWordIndex) {
+            html +=
+              '<span class="inline-flex items-center bg-amber-100/70 dark:bg-amber-900/30 px-1.5 rounded-lg border-b-2 border-amber-500">';
+            const typed = state.raceCurrentInput;
+            for (let i = 0; i < word.length; i++) {
+              if (i < typed.length) {
+                const ok = typed[i] === word[i];
+                html += `<span class="${ok ? "text-emerald-600 dark:text-emerald-400" : "text-rose-500 underline"}">${word[i]}</span>`;
+              } else if (i === typed.length) {
+                html += `<span class="border-l-2 border-amber-500 caret-blink text-slate-900 dark:text-white">${word[i]}</span>`;
+              } else {
+                html += `<span class="text-slate-600 dark:text-slate-300">${word[i]}</span>`;
+              }
+            }
+            if (typed.length > word.length) {
+              html += `<span class="text-rose-500">${typed.slice(word.length)}</span>`;
+            }
+            html += "</span>";
+          } else {
+            html += `<span class="text-slate-400 dark:text-slate-500">${word}</span>`;
+          }
+        });
+        container.innerHTML = html;
+      }
+
+      function startRaceTimers() {
+        state.raceStarted = true;
+        const botWpm = Number(document.getElementById("race-bot-select").value);
+
+        state.raceTimerInterval = setInterval(() => {
+          state.raceElapsed++;
+          if (state.raceMode === "time") {
+            state.raceTimeLeft--;
+            document.getElementById("race-timer-display").textContent =
+              state.raceTimeLeft;
+          }
+
+          const mins = state.raceElapsed / 60;
+          const wpm = Math.round(state.raceCorrectChars / 5 / mins);
+          document.getElementById("race-live-wpm").textContent = wpm;
+          document.getElementById("race-player-wpm-badge").textContent =
+            `${wpm} WPM`;
+
+          if (botWpm > 0) {
+            if (state.raceMode === "time") {
+              const pct = Math.min(
+                100,
+                (state.raceElapsed / state.raceValue) * 100,
+              );
+              document.getElementById("race-bot-bar").style.width = `${pct}%`;
+            } else {
+              const botWordsDone = (botWpm / 60) * state.raceElapsed;
+              const pct = Math.min(100, (botWordsDone / state.raceValue) * 100);
+              document.getElementById("race-bot-bar").style.width = `${pct}%`;
+            }
+          }
+
+          if (state.raceMode === "time" && state.raceTimeLeft <= 0) {
+            finishRace();
+          }
+        }, 1000);
+      }
+
+      function handleRaceChar(char) {
+        if (state.raceFinished) return;
+        if (!state.raceStarted) startRaceTimers();
+
+        const currentWord = state.raceWords[state.raceWordIndex];
+
+        if (char === " ") {
+          if (state.raceCurrentInput.length === 0) return;
+
+          if (state.raceCurrentInput === currentWord) {
+            state.raceCorrectChars += currentWord.length + 1;
+            playSound("key");
+          } else {
+            state.raceErrors++;
+            playSound("error");
+          }
+
+          state.raceWordIndex++;
+          state.raceCurrentInput = "";
+
+          const targetTotal =
+            state.raceMode === "words"
+              ? state.raceValue
+              : state.raceWords.length;
+          const pct = Math.min(
+            100,
+            Math.round((state.raceWordIndex / targetTotal) * 100),
+          );
+          document.getElementById("race-player-bar").style.width = `${pct}%`;
+
+          if (state.raceMode === "words") {
+            document.getElementById("race-timer-display").textContent =
+              `${state.raceWordIndex}/${state.raceValue}`;
+            if (state.raceWordIndex >= state.raceValue) {
+              finishRace();
+              return;
+            }
+          } else if (state.raceWordIndex >= state.raceWords.length - 10) {
+            state.raceWords.push(...generateRaceWords(25));
+          }
+
+          renderRaceWords();
+          return;
+        }
+
+        state.raceTotalTypedChars++;
+        const expectedChar = currentWord[state.raceCurrentInput.length];
+        if (char === expectedChar) playSound("key");
+        else {
+          state.raceErrors++;
+          playSound("error");
+        }
+
+        state.raceCurrentInput += char;
+
+        const acc =
+          state.raceTotalTypedChars > 0
+            ? Math.max(
+                0,
+                Math.round(
+                  ((state.raceTotalTypedChars - state.raceErrors) /
+                    state.raceTotalTypedChars) *
+                    100,
+                ),
+              )
+            : 100;
+        document.getElementById("race-live-acc").textContent = `${acc}%`;
+
+        if (
+          state.raceMode === "words" &&
+          state.raceWordIndex === state.raceValue - 1 &&
+          state.raceCurrentInput === currentWord
+        ) {
+          state.raceCorrectChars += currentWord.length;
+          state.raceWordIndex++;
+          document.getElementById("race-player-bar").style.width = "100%";
+          document.getElementById("race-timer-display").textContent =
+            `${state.raceValue}/${state.raceValue}`;
+          finishRace();
+          return;
+        }
+
+        renderRaceWords();
+      }
+
+      function finishRace() {
+        state.raceFinished = true;
+        clearInterval(state.raceTimerInterval);
+        playSound("success");
+
+        const mins = Math.max(state.raceElapsed / 60, 0.02);
+        const finalWpm = Math.round(state.raceCorrectChars / 5 / mins);
+        const finalCpm = Math.round(state.raceCorrectChars / mins);
+        const acc =
+          state.raceTotalTypedChars > 0
+            ? Math.max(
+                0,
+                Math.round(
+                  ((state.raceTotalTypedChars - state.raceErrors) /
+                    state.raceTotalTypedChars) *
+                    100,
+                ),
+              )
+            : 100;
+
+        if (finalWpm > state.progress.bestRaceWpm) {
+          state.progress.bestRaceWpm = finalWpm;
+          saveProgress();
+        }
+
+        const botWpm = Number(document.getElementById("race-bot-select").value);
+        const winnerBadge = document.getElementById("race-winner-badge");
+        if (botWpm > 0) {
+          if (finalWpm >= botWpm) {
+            winnerBadge.textContent = `🏆 អ្នកបានឈ្នះ Bot (${botWpm} WPM)!`;
+            winnerBadge.className =
+              "inline-block px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 mb-1";
+          } else {
+            winnerBadge.textContent = `🤖 Bot (${botWpm} WPM) ឈ្នះលើកនេះ — ព្យាយាមម្តងទៀត!`;
+            winnerBadge.className =
+              "inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/60 dark:text-amber-300 mb-1";
+          }
+        } else {
+          winnerBadge.textContent = "✨ តេស្តល្បឿនបានបញ្ចប់";
+        }
+
+        document.getElementById("res-wpm").textContent = finalWpm;
+        document.getElementById("res-acc").textContent = `${acc}%`;
+        document.getElementById("res-cpm").textContent = finalCpm;
+        document.getElementById("res-err").textContent = state.raceErrors;
+        document.getElementById("race-result-panel").classList.remove("hidden");
+      }
+
+      /* ============================================================================
+           9. MODE 3: 4 EDUCATIONAL KHMER TYPING GAMES (UNIQUE CANVAS CONTEXTS)
+           ============================================================================ */
+      const defenseCanvas = document.getElementById("canvas-temple");
+      const defenseCtx = defenseCanvas ? defenseCanvas.getContext("2d") : null;
+
+      const balloonCanvas = document.getElementById("canvas-lantern");
+      const balloonCtx = balloonCanvas ? balloonCanvas.getContext("2d") : null;
+
+      const boatCanvas = document.getElementById("canvas-boat");
+      const boatCtx = boatCanvas ? boatCanvas.getContext("2d") : null;
+
+      const ARCADE_META = {
+        temple: {
+          title: "ការពារប្រាសាទអង្គរ (Angkor Temple Defense)",
+          desc: "វាយអក្សរ ឬពាក្យខ្មែរលើអាចម៍ផ្កាយមុនពេលវាធ្លាក់ដល់ប្រាសាទ!",
+          icon: "fa-solid fa-gopuram",
+          overlayDesc:
+            "វាយពាក្យ ឬតួអក្សរខ្មែរដែលកំពុងធ្លាក់ចុះ ដើម្បីបាញ់កាំរស្មីការពារប្រាសាទ។ វាយត្រូវជាប់ៗគ្នាដើម្បីទទួលបាន Combo!",
+        },
+        lantern: {
+          title: "បំផ្ទុះគោមភ្លើងខ្មែរ (Khmer Sky Lanterns)",
+          desc: "វាយអក្សរដើម្បីបំផ្ទុះគោមភ្លើង! គោមមាស (⭐) ផ្តល់ពិន្ទុគុណ ២ និងបន្ថយល្បឿន!",
+          icon: "fa-solid fa-fire-flame-curved",
+          overlayDesc:
+            "គោមភ្លើងកំពុងហោះឡើងលើមេឃ! វាយអក្សរលើគោមនីមួយៗឱ្យទាន់ពេល។ បំផ្ទុះគោមមាសដើម្បីបង្កកពេលវេលា ៤ វិនាទី!",
+        },
+        boat: {
+          title: "ប្រណាំងទូកងបុណ្យអុំទូក (Bon Om Touk Boat Race)",
+          desc: "វាយពាក្យខ្មែរឱ្យបានលឿនដើម្បីអុំទូកងឈ្នះទូកគូប្រកួតទាំង ៣!",
+          icon: "fa-solid fa-ship",
+          overlayDesc:
+            "ប្រណាំងទូកងលើដងទន្លេសាប! រាល់ពេលអ្នកវាយពាក្យខ្មែរត្រូវ ទូករបស់អ្នកនឹងបង្កើនល្បឿនទៅមុខយ៉ាងលឿន!",
+        },
+        grid: {
+          title: "ល្បែងចងចាំ និងរហ័សរហួន (Khmer Flash Reflex Grid)",
+          desc: "វាយពាក្យខ្មែរណាមួយនៅលើកាតទាំង ៨ ដើម្បីបំបែកកាត និងបន្ថែមពេលវេលា!",
+          icon: "fa-solid fa-table-cells-large",
+          overlayDesc:
+            "សម្លឹងមើលកាតពាក្យខ្មែរទាំង ៨ ហើយវាយពាក្យណាមួយឱ្យបានលឿន! បំបែកអស់ ១ ជុំ ទទួលបាន +៨ វិនាទីបន្ថែម!",
+        },
+      };
+
+      function getActiveCanvas() {
+        if (state.activeArcadeGame === "temple") return defenseCanvas;
+        if (state.activeArcadeGame === "lantern") return balloonCanvas;
+        if (state.activeArcadeGame === "boat") return boatCanvas;
+        return null;
+      }
+
+      function resizeActiveCanvas() {
+        const targetCanvas = getActiveCanvas();
+        if (!targetCanvas || !targetCanvas.parentElement) return;
+        const rect = targetCanvas.parentElement.getBoundingClientRect();
+        if (rect.width > 0 && rect.height > 0) {
+          targetCanvas.width = rect.width;
+          targetCanvas.height = rect.height;
+        }
+      }
+
+      window.addEventListener("resize", () => {
+        if (state.mode === "game") {
+          resizeActiveCanvas();
+          if (!state.gameRunning) drawIdlePreview();
+        }
+      });
+
+      function stopAllArcadeGames() {
+        state.gameRunning = false;
+        if (state.gameAnimFrame) {
+          cancelAnimationFrame(state.gameAnimFrame);
+          state.gameAnimFrame = null;
+        }
+        if (state.gameTimerInterval) {
+          clearInterval(state.gameTimerInterval);
+          state.gameTimerInterval = null;
+        }
+      }
+
+      function selectArcadeGame(gameKey) {
+        stopAllArcadeGames();
+        state.activeArcadeGame = gameKey;
+        state.gameTypedBuffer = "";
+        updateGameBufferUI();
+
+        ["temple", "lantern", "boat", "grid"].forEach((key) => {
+          const tab = document.getElementById(`game-tab-${key}`);
+          if (!tab) return;
+          if (key === gameKey) {
+            tab.className =
+              "arcade-tab-btn text-left p-3.5 rounded-2xl border-2 border-amber-500 bg-amber-50/80 dark:bg-amber-950/40 shadow-sm transition-all";
+          } else {
+            tab.className =
+              "arcade-tab-btn text-left p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-amber-400 transition-all";
+          }
+        });
+
+        if (defenseCanvas)
+          defenseCanvas.classList.toggle("hidden", gameKey !== "temple");
+        if (balloonCanvas)
+          balloonCanvas.classList.toggle("hidden", gameKey !== "lantern");
+        if (boatCanvas)
+          boatCanvas.classList.toggle("hidden", gameKey !== "boat");
+        const gridStage = document.getElementById("stage-reflex-grid");
+        if (gridStage) gridStage.classList.toggle("hidden", gameKey !== "grid");
+
+        const meta = ARCADE_META[gameKey];
+        document.getElementById("arcade-hud-title").textContent = meta.title;
+        document.getElementById("arcade-hud-desc").textContent = meta.desc;
+        document.getElementById("arcade-hud-icon").innerHTML =
+          `<i class="${meta.icon}"></i>`;
+        document.getElementById("game-overlay-title").textContent = meta.title;
+        document.getElementById("game-overlay-desc").textContent =
+          meta.overlayDesc;
+        document.getElementById("game-overlay-icon").innerHTML =
+          `<i class="${meta.icon}"></i>`;
+        document.getElementById("game-final-stats").classList.add("hidden");
+        document.getElementById("game-start-btn-text").textContent =
+          "ចាប់ផ្តើមលេង (Start Game)";
+        document.getElementById("game-overlay").classList.remove("hidden");
+
+        resizeActiveCanvas();
+        drawIdlePreview();
+        focusTypingInput();
+      }
+
+      function getWordPoolByDifficulty() {
+        const diff = document.getElementById("game-difficulty").value;
+        if (diff === "chars") return KHMER_SINGLE_CHARS;
+        if (diff === "words") return KHMER_WORD_BANK;
+        return KHMER_SYLLABLES;
+      }
+
+      function pickUniqueWord(existingWords) {
+        const pool = getWordPoolByDifficulty();
+        for (let attempt = 0; attempt < 25; attempt++) {
+          const candidate = pool[Math.floor(Math.random() * pool.length)];
+          if (!existingWords.includes(candidate)) return candidate;
+        }
+        return pool[Math.floor(Math.random() * pool.length)];
+      }
+
+      function updateGameHUD() {
+        document.getElementById("game-score-hud").textContent = state.gameScore;
+        document.getElementById("game-combo-hud").textContent =
+          `x${state.gameCombo}`;
+        const statusEl = document.getElementById("game-status-hud");
+        if (
+          state.activeArcadeGame === "temple" ||
+          state.activeArcadeGame === "lantern"
+        ) {
+          statusEl.textContent = "❤️".repeat(Math.max(0, state.gameLives));
+        } else if (state.activeArcadeGame === "boat") {
+          const player = state.boatPlayers[0];
+          const pct = player
+            ? Math.min(
+                100,
+                Math.round((player.dist / state.boatDistance) * 100),
+              )
+            : 0;
+          statusEl.textContent = `ចម្ងាយ: ${pct}%`;
+        } else if (state.activeArcadeGame === "grid") {
+          statusEl.textContent = `⏱️ ${state.gridTimeLeft}s`;
+        }
+      }
+
+      function updateGameBufferUI() {
+        const el = document.getElementById("game-typed-buffer");
+        if (!el) return;
+        if (state.gameTypedBuffer.length === 0) {
+          el.innerHTML =
+            '<span class="text-xs text-slate-400 font-sans">វាយអក្សរនៅទីនេះ...</span>';
+        } else {
+          el.textContent = state.gameTypedBuffer;
+        }
+      }
+
+      function finishArcadeGame(title, desc) {
+        stopAllArcadeGames();
+        if (state.gameScore > state.progress.gameHighScore) {
+          state.progress.gameHighScore = state.gameScore;
+          saveProgress();
+        }
+        document.getElementById("game-overlay-title").textContent = title;
+        document.getElementById("game-overlay-desc").textContent = desc;
+        document.getElementById("game-over-score").textContent =
+          state.gameScore;
+        document.getElementById("game-over-best").textContent =
+          state.progress.gameHighScore;
+        document.getElementById("game-final-stats").classList.remove("hidden");
+        document.getElementById("game-start-btn-text").textContent =
+          "លេងម្តងទៀត (Play Again)";
+        document.getElementById("game-overlay").classList.remove("hidden");
+      }
+
+      function startCurrentArcadeGame() {
+        stopAllArcadeGames();
+        resizeActiveCanvas();
+
+        state.gameRunning = true;
+        state.gameScore = 0;
+        state.gameCombo = 1;
+        state.gameLives = 5;
+        state.gameTypedBuffer = "";
+
+        document.getElementById("game-overlay").classList.add("hidden");
+        updateGameBufferUI();
+        focusTypingInput();
+
+        const active = state.activeArcadeGame;
+        if (active === "temple") startTempleDefense();
+        else if (active === "lantern") startSkyLanterns();
+        else if (active === "boat") startBoatRace();
+        else if (active === "grid") startReflexGrid();
+
+        updateGameHUD();
+      }
+
+      function drawIdlePreview() {
+        const active = state.activeArcadeGame;
+        if (active === "temple") drawTempleBackground();
+        else if (active === "lantern") drawLanternBackground();
+        else if (active === "boat") drawRiverBackground(0);
+      }
+
+      /* -------------------- GAME 1: ANGKOR TEMPLE DEFENSE -------------------- */
+      function drawTempleBackground() {
+        if (!defenseCtx || !defenseCanvas) return;
+        const w = defenseCanvas.width;
+        const h = defenseCanvas.height;
+        const groundY = h - 42;
+
+        const grad = defenseCtx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, "#020617");
+        grad.addColorStop(1, "#1e1b4b");
+        defenseCtx.fillStyle = grad;
+        defenseCtx.fillRect(0, 0, w, h);
+
+        defenseCtx.fillStyle = "#0f172a";
+        defenseCtx.fillRect(0, groundY, w, 42);
+        defenseCtx.fillStyle = "#d97706";
+        defenseCtx.fillRect(0, groundY, w, 3);
+
+        const cx = w / 2;
+        defenseCtx.fillStyle = "#1e293b";
+        defenseCtx.strokeStyle = "#f59e0b";
+        defenseCtx.lineWidth = 1.5;
+
+        defenseCtx.fillRect(cx - 110, groundY - 22, 220, 22);
+        defenseCtx.strokeRect(cx - 110, groundY - 22, 220, 22);
+
+        [-65, 65].forEach((offset) => {
+          defenseCtx.beginPath();
+          defenseCtx.moveTo(cx + offset - 22, groundY - 22);
+          defenseCtx.lineTo(cx + offset - 12, groundY - 58);
+          defenseCtx.lineTo(cx + offset, groundY - 74);
+          defenseCtx.lineTo(cx + offset + 12, groundY - 58);
+          defenseCtx.lineTo(cx + offset + 22, groundY - 22);
+          defenseCtx.closePath();
+          defenseCtx.fill();
+          defenseCtx.stroke();
+        });
+
+        defenseCtx.beginPath();
+        defenseCtx.moveTo(cx - 30, groundY - 22);
+        defenseCtx.lineTo(cx - 18, groundY - 78);
+        defenseCtx.lineTo(cx, groundY - 105);
+        defenseCtx.lineTo(cx + 18, groundY - 78);
+        defenseCtx.lineTo(cx + 30, groundY - 22);
+        defenseCtx.closePath();
+        defenseCtx.fill();
+        defenseCtx.stroke();
+      }
+
+      function startTempleDefense() {
+        state.templeMeteors = [];
+        state.templeLasers = [];
+        state.templeParticles = [];
+        state.templeLastSpawn = performance.now();
+        state.templeSpawnRate = 2300;
+        spawnTempleMeteor();
+        state.gameAnimFrame = requestAnimationFrame(loopTempleDefense);
+      }
+
+      function spawnTempleMeteor() {
+        if (!defenseCanvas) return;
+        const existing = state.templeMeteors.map((m) => m.word);
+        const word = pickUniqueWord(existing);
+        const padding = 85;
+        const x =
+          padding +
+          Math.random() * Math.max(100, defenseCanvas.width - padding * 2);
+        const diff = document.getElementById("game-difficulty").value;
+        const baseSpeed = diff === "words" ? 0.52 : 0.72;
+        const speed = baseSpeed + Math.min(1.1, state.gameScore / 900);
+
+        state.templeMeteors.push({
+          word,
+          x,
+          y: -25,
+          speed,
+          radius: Math.max(26, word.length * 11),
+        });
+      }
+
+      function loopTempleDefense(timestamp) {
+        if (
+          !state.gameRunning ||
+          state.activeArcadeGame !== "temple" ||
+          !defenseCtx ||
+          !defenseCanvas
+        )
+          return;
+        const groundY = defenseCanvas.height - 42;
+
+        drawTempleBackground();
+
+        if (timestamp - state.templeLastSpawn > state.templeSpawnRate) {
+          spawnTempleMeteor();
+          state.templeLastSpawn = timestamp;
+        }
+
+        for (let i = state.templeLasers.length - 1; i >= 0; i--) {
+          const l = state.templeLasers[i];
+          defenseCtx.save();
+          defenseCtx.strokeStyle = `rgba(251, 191, 36, ${l.alpha})`;
+          defenseCtx.lineWidth = 4;
+          defenseCtx.beginPath();
+          defenseCtx.moveTo(l.x1, l.y1);
+          defenseCtx.lineTo(l.x2, l.y2);
+          defenseCtx.stroke();
+          defenseCtx.restore();
+          l.alpha -= 0.08;
+          if (l.alpha <= 0) state.templeLasers.splice(i, 1);
+        }
+
+        for (let i = state.templeParticles.length - 1; i >= 0; i--) {
+          const p = state.templeParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.alpha -= 0.035;
+          defenseCtx.save();
+          defenseCtx.globalAlpha = Math.max(0, p.alpha);
+          defenseCtx.fillStyle = p.color;
+          defenseCtx.beginPath();
+          defenseCtx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
+          defenseCtx.fill();
+          defenseCtx.restore();
+          if (p.alpha <= 0) state.templeParticles.splice(i, 1);
+        }
+
+        for (let i = state.templeMeteors.length - 1; i >= 0; i--) {
+          const m = state.templeMeteors[i];
+          m.y += m.speed;
+          const isTargeted =
+            state.gameTypedBuffer.length > 0 &&
+            m.word.startsWith(state.gameTypedBuffer);
+
+          defenseCtx.save();
+          defenseCtx.beginPath();
+          defenseCtx.arc(m.x, m.y, m.radius, 0, Math.PI * 2);
+          defenseCtx.fillStyle = isTargeted
+            ? "rgba(245, 158, 11, 0.3)"
+            : "rgba(99, 102, 241, 0.22)";
+          defenseCtx.fill();
+          defenseCtx.lineWidth = isTargeted ? 2.5 : 1.5;
+          defenseCtx.strokeStyle = isTargeted ? "#fbbf24" : "#818cf8";
+          defenseCtx.stroke();
+
+          defenseCtx.font = 'bold 21px "Noto Sans Khmer", sans-serif';
+          defenseCtx.textAlign = "center";
+          defenseCtx.textBaseline = "middle";
+          defenseCtx.fillStyle = isTargeted ? "#fde047" : "#ffffff";
+          defenseCtx.fillText(m.word, m.x, m.y);
+          defenseCtx.restore();
+
+          if (m.y + m.radius >= groundY) {
+            state.templeMeteors.splice(i, 1);
+            state.gameLives--;
+            state.gameCombo = 1;
+            playSound("error");
+            updateGameHUD();
+            if (state.gameLives <= 0) {
+              finishArcadeGame(
+                "ហ្គេមបានបញ្ចប់ (Game Over)",
+                "ប្រាសាទត្រូវបានវាយប្រហារ! ព្យាយាមវាយឱ្យកាន់តែលឿននៅជុំបន្ទាប់។",
+              );
+              return;
+            }
+          }
+        }
+
+        state.gameAnimFrame = requestAnimationFrame(loopTempleDefense);
+      }
+
+      /* -------------------- GAME 2: KHMER SKY LANTERNS -------------------- */
+      function drawLanternBackground() {
+        if (!balloonCtx || !balloonCanvas) return;
+        const grad = balloonCtx.createLinearGradient(
+          0,
+          0,
+          0,
+          balloonCanvas.height,
+        );
+        grad.addColorStop(0, "#090d16");
+        grad.addColorStop(0.6, "#1e1b4b");
+        grad.addColorStop(1, "#31102f");
+        balloonCtx.fillStyle = grad;
+        balloonCtx.fillRect(0, 0, balloonCanvas.width, balloonCanvas.height);
+      }
+
+      function startSkyLanterns() {
+        state.lanterns = [];
+        state.lanternPops = [];
+        state.lanternLastSpawn = performance.now();
+        state.lanternFreezeUntil = 0;
+        spawnLantern();
+        state.gameAnimFrame = requestAnimationFrame(loopSkyLanterns);
+      }
+
+      function spawnLantern() {
+        if (!balloonCanvas) return;
+        const existing = state.lanterns.map((l) => l.word);
+        const word = pickUniqueWord(existing);
+        const isGolden = Math.random() < 0.22;
+        const colors = ["#f43f5e", "#f97316", "#ec4899", "#8b5cf6", "#06b6d4"];
+        const color = isGolden
+          ? "#eab308"
+          : colors[Math.floor(Math.random() * colors.length)];
+        const padding = 80;
+
+        state.lanterns.push({
+          word,
+          x:
+            padding +
+            Math.random() * Math.max(100, balloonCanvas.width - padding * 2),
+          y: balloonCanvas.height + 35,
+          vy: 0.7 + Math.min(1.0, state.gameScore / 1000),
+          swayPhase: Math.random() * Math.PI * 2,
+          isGolden,
+          color,
+          radius: Math.max(28, word.length * 11),
+        });
+      }
+
+      function loopSkyLanterns(timestamp) {
+        if (
+          !state.gameRunning ||
+          state.activeArcadeGame !== "lantern" ||
+          !balloonCtx ||
+          !balloonCanvas
+        )
+          return;
+        const isFrozen = timestamp < state.lanternFreezeUntil;
+
+        drawLanternBackground();
+
+        if (isFrozen) {
+          balloonCtx.fillStyle = "rgba(56, 189, 248, 0.12)";
+          balloonCtx.fillRect(0, 0, balloonCanvas.width, balloonCanvas.height);
+          balloonCtx.font = 'bold 14px "Noto Sans Khmer", sans-serif';
+          balloonCtx.fillStyle = "#7dd3fc";
+          balloonCtx.textAlign = "center";
+          balloonCtx.fillText(
+            "❄️ ពេលវេលាត្រូវបានបន្ថយល្បឿន (Slow Motion Active)",
+            balloonCanvas.width / 2,
+            28,
+          );
+        }
+
+        const spawnInterval = Math.max(1150, 2250 - state.gameScore * 0.5);
+        if (timestamp - state.lanternLastSpawn > spawnInterval) {
+          spawnLantern();
+          state.lanternLastSpawn = timestamp;
+        }
+
+        for (let i = state.lanternPops.length - 1; i >= 0; i--) {
+          const p = state.lanternPops[i];
+          p.r += 2.5;
+          p.alpha -= 0.04;
+          balloonCtx.save();
+          balloonCtx.strokeStyle = p.color;
+          balloonCtx.globalAlpha = Math.max(0, p.alpha);
+          balloonCtx.lineWidth = 3;
+          balloonCtx.beginPath();
+          balloonCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          balloonCtx.stroke();
+          balloonCtx.restore();
+          if (p.alpha <= 0) state.lanternPops.splice(i, 1);
+        }
+
+        for (let i = state.lanterns.length - 1; i >= 0; i--) {
+          const l = state.lanterns[i];
+          l.y -= isFrozen ? l.vy * 0.35 : l.vy;
+          l.swayPhase += 0.03;
+          const drawX = l.x + Math.sin(l.swayPhase) * 14;
+          const isTargeted =
+            state.gameTypedBuffer.length > 0 &&
+            l.word.startsWith(state.gameTypedBuffer);
+
+          balloonCtx.save();
+          balloonCtx.strokeStyle = "rgba(255,255,255,0.35)";
+          balloonCtx.beginPath();
+          balloonCtx.moveTo(drawX, l.y + l.radius);
+          balloonCtx.lineTo(drawX, l.y + l.radius + 18);
+          balloonCtx.stroke();
+
+          balloonCtx.beginPath();
+          balloonCtx.arc(drawX, l.y, l.radius, 0, Math.PI * 2);
+          balloonCtx.fillStyle = l.color;
+          balloonCtx.globalAlpha = 0.88;
+          balloonCtx.fill();
+          balloonCtx.globalAlpha = 1;
+          balloonCtx.lineWidth = isTargeted ? 3.5 : 2;
+          balloonCtx.strokeStyle = isTargeted
+            ? "#ffffff"
+            : l.isGolden
+              ? "#fef08a"
+              : "rgba(255,255,255,0.4)";
+          balloonCtx.stroke();
+
+          if (l.isGolden) {
+            balloonCtx.font = "bold 12px sans-serif";
+            balloonCtx.fillStyle = "#fef08a";
+            balloonCtx.textAlign = "center";
+            balloonCtx.fillText("⭐ x2 ❄️", drawX, l.y - l.radius - 8);
+          }
+
+          balloonCtx.font = 'bold 21px "Noto Sans Khmer", sans-serif';
+          balloonCtx.textAlign = "center";
+          balloonCtx.textBaseline = "middle";
+          balloonCtx.fillStyle = "#ffffff";
+          balloonCtx.fillText(l.word, drawX, l.y);
+          balloonCtx.restore();
+
+          if (l.y + l.radius < 0) {
+            state.lanterns.splice(i, 1);
+            state.gameLives--;
+            state.gameCombo = 1;
+            playSound("error");
+            updateGameHUD();
+            if (state.gameLives <= 0) {
+              finishArcadeGame(
+                "គោមភ្លើងហោះផុតអស់ហើយ!",
+                "ព្យាយាមវាយបំផ្ទុះគោមភ្លើងឱ្យបានលឿនជាងមុន!",
+              );
+              return;
+            }
+          }
+        }
+
+        state.gameAnimFrame = requestAnimationFrame(loopSkyLanterns);
+      }
+
+      /* -------------------- GAME 3: BON OM TOUK BOAT RACE -------------------- */
+      function drawRiverBackground(offset) {
+        if (!boatCtx || !boatCanvas) return;
+        const w = boatCanvas.width;
+        const h = boatCanvas.height;
+
+        const grad = boatCtx.createLinearGradient(0, 0, 0, h);
+        grad.addColorStop(0, "#0369a1");
+        grad.addColorStop(0.5, "#0284c7");
+        grad.addColorStop(1, "#0c4a6e");
+        boatCtx.fillStyle = grad;
+        boatCtx.fillRect(0, 0, w, h);
+
+        boatCtx.fillStyle = "#15803d";
+        boatCtx.fillRect(0, 0, w, 26);
+        boatCtx.fillRect(0, h - 75, w, 75);
+
+        boatCtx.strokeStyle = "rgba(255, 255, 255, 0.16)";
+        boatCtx.lineWidth = 2;
+        for (let row = 0; row < 4; row++) {
+          const laneY = 45 + row * 85;
+          boatCtx.beginPath();
+          for (let x = -40; x < w + 40; x += 45) {
+            const rx = x - (offset % 45);
+            boatCtx.moveTo(rx, laneY + 38);
+            boatCtx.lineTo(rx + 20, laneY + 38);
+          }
+          boatCtx.stroke();
+        }
+
+        const finishX = w - 65;
+        boatCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
+        boatCtx.fillRect(finishX, 26, 6, h - 101);
+      }
+
+      function startBoatRace() {
+        state.boatDistance = 1000;
+        state.boatWaterOffset = 0;
+        state.boatPlayers = [
+          {
+            name: "ទូកអ្នក (You)",
+            dist: 0,
+            speed: 0,
+            color: "#f59e0b",
+            isPlayer: true,
+          },
+          {
+            name: "កំពង់ចាម",
+            dist: 0,
+            speed: 1.05,
+            color: "#f43f5e",
+            isPlayer: false,
+          },
+          {
+            name: "ព្រៃវែង",
+            dist: 0,
+            speed: 0.92,
+            color: "#a855f7",
+            isPlayer: false,
+          },
+          {
+            name: "កណ្តាល",
+            dist: 0,
+            speed: 0.8,
+            color: "#10b981",
+            isPlayer: false,
+          },
+        ];
+        state.boatTargetWord = pickUniqueWord([]);
+        updateGameHUD();
+        state.gameAnimFrame = requestAnimationFrame(loopBoatRace);
+      }
+
+      function loopBoatRace() {
+        if (
+          !state.gameRunning ||
+          state.activeArcadeGame !== "boat" ||
+          !boatCtx ||
+          !boatCanvas
+        )
+          return;
+        const w = boatCanvas.width;
+
+        state.boatWaterOffset += 2.2;
+        drawRiverBackground(state.boatWaterOffset);
+
+        const startX = 45;
+        const finishX = w - 85;
+        const trackSpan = Math.max(150, finishX - startX);
+
+        state.boatPlayers.forEach((boat, idx) => {
+          if (boat.isPlayer) {
+            boat.dist += boat.speed;
+            boat.speed *= 0.94;
+          } else {
+            boat.dist +=
+              boat.speed + Math.sin(performance.now() * 0.003 + idx) * 0.25;
+          }
+
+          const laneY = 58 + idx * 82;
+          const progress = Math.min(1, boat.dist / state.boatDistance);
+          const boatX = startX + progress * trackSpan;
+
+          boatCtx.save();
+          boatCtx.fillStyle = boat.color;
+          boatCtx.beginPath();
+          boatCtx.moveTo(boatX - 38, laneY);
+          boatCtx.quadraticCurveTo(boatX, laneY - 12, boatX + 42, laneY);
+          boatCtx.quadraticCurveTo(boatX, laneY + 12, boatX - 38, laneY);
+          boatCtx.fill();
+          boatCtx.strokeStyle = "#ffffff";
+          boatCtx.lineWidth = 1.5;
+          boatCtx.stroke();
+
+          boatCtx.font = 'bold 12px "Noto Sans Khmer", sans-serif';
+          boatCtx.fillStyle = "#ffffff";
+          boatCtx.textAlign = "left";
+          boatCtx.fillText(boat.name, Math.max(12, boatX - 35), laneY - 16);
+          boatCtx.restore();
+        });
+
+        // Prominent Target Word Card
+        boatCtx.save();
+        const boxW = Math.max(210, state.boatTargetWord.length * 24 + 60);
+        const boxX = (w - boxW) / 2;
+        boatCtx.fillStyle = "rgba(15, 23, 42, 0.92)";
+        boatCtx.strokeStyle = "#fbbf24";
+        boatCtx.lineWidth = 2.5;
+        boatCtx.beginPath();
+        boatCtx.roundRect(boxX, 12, boxW, 54, 14);
+        boatCtx.fill();
+        boatCtx.stroke();
+
+        boatCtx.font = 'bold 26px "Noto Sans Khmer", sans-serif';
+        boatCtx.fillStyle = "#fde047";
+        boatCtx.textAlign = "center";
+        boatCtx.textBaseline = "middle";
+        boatCtx.fillText(state.boatTargetWord, w / 2, 39);
+        boatCtx.restore();
+
+        updateGameHUD();
+
+        const winner = state.boatPlayers.find(
+          (b) => b.dist >= state.boatDistance,
+        );
+        if (winner) {
+          if (winner.isPlayer) {
+            state.gameScore += 250;
+            playSound("success");
+            finishArcadeGame(
+              "🏆 ជ័យជម្នះ! ទូករបស់អ្នកឈ្នះហើយ!",
+              "អបអរសាទរ! អ្នកបានអុំទូកងឆ្លងកាត់ទីផ្តាច់ព្រ័ត្រមុនគេ!",
+            );
+          } else {
+            playSound("error");
+            finishArcadeGame(
+              `ទូក ${winner.name} ឈ្នះលើកនេះ!`,
+              "ព្យាយាមវាយពាក្យខ្មែរឱ្យកាន់តែលឿនដើម្បីបង្កើនល្បឿនទូក!",
+            );
+          }
+          return;
+        }
+
+        state.gameAnimFrame = requestAnimationFrame(loopBoatRace);
+      }
+
+      /* -------------------- GAME 4: KHMER FLASH REFLEX GRID -------------------- */
+      function startReflexGrid() {
+        state.gridRound = 1;
+        state.gridTimeLeft = 45;
+        populateReflexGridRound();
+
+        state.gameTimerInterval = setInterval(() => {
+          if (!state.gameRunning || state.activeArcadeGame !== "grid") return;
+          state.gridTimeLeft--;
+          updateGameHUD();
+          if (state.gridTimeLeft <= 0) {
+            finishArcadeGame(
+              "អស់ពេលហើយ! (Time Up)",
+              `អ្នកឆ្លងផុតបាន ${state.gridRound} ជុំ និងទទួលបាន ${state.gameScore} ពិន្ទុ!`,
+            );
+          }
+        }, 1000);
+      }
+
+      function populateReflexGridRound() {
+        document.getElementById("grid-round-num").textContent = state.gridRound;
+        const chosen = [];
+        for (let i = 0; i < 8; i++) {
+          chosen.push(pickUniqueWord(chosen));
+        }
+        state.gridCards = chosen.map((word, idx) => ({
+          id: idx,
+          word,
+          cleared: false,
+        }));
+        renderReflexGridCards();
+      }
+
+      function renderReflexGridCards() {
+        const container = document.getElementById("reflex-cards-container");
+        if (!container) return;
+        container.innerHTML = state.gridCards
+          .map((card) => {
+            if (card.cleared) {
+              return `<div class="h-24 sm:h-28 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-2xl"><i class="fa-solid fa-circle-check"></i></div>`;
+            }
+            const isMatchPrefix =
+              state.gameTypedBuffer.length > 0 &&
+              card.word.startsWith(state.gameTypedBuffer);
+            return `
+                    <div class="h-24 sm:h-28 rounded-2xl border-2 transition-all flex items-center justify-center px-3 text-center khmer-display text-xl sm:text-2xl font-bold shadow-md ${
+                      isMatchPrefix
+                        ? "bg-amber-500/25 border-amber-400 text-amber-200 scale-105"
+                        : "bg-slate-800/90 border-slate-700 text-white"
+                    }">
+                        ${card.word}
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      /* -------------------- UNIFIED ARCADE TYPING DISPATCHER -------------------- */
+      function handleGameChar(char) {
+        if (!state.gameRunning) return;
+
+        if (char === " ") {
+          state.gameTypedBuffer = "";
+          updateGameBufferUI();
+          if (state.activeArcadeGame === "grid") renderReflexGridCards();
+          return;
+        }
+
+        state.gameTypedBuffer += char;
+        updateGameBufferUI();
+
+        const active = state.activeArcadeGame;
+
+        if (active === "temple") {
+          const matchIdx = state.templeMeteors.findIndex(
+            (m) => m.word === state.gameTypedBuffer,
+          );
+          if (matchIdx !== -1) {
+            const target = state.templeMeteors[matchIdx];
+            playSound("laser");
+            state.templeMeteors.splice(matchIdx, 1);
+            if (defenseCanvas) {
+              state.templeLasers.push({
+                x1: defenseCanvas.width / 2,
+                y1: defenseCanvas.height - 145,
+                x2: target.x,
+                y2: target.y,
+                alpha: 1.0,
+              });
+            }
+            for (let i = 0; i < 14; i++) {
+              const angle = (Math.PI * 2 * i) / 14;
+              const spd = 1.5 + Math.random() * 3;
+              state.templeParticles.push({
+                x: target.x,
+                y: target.y,
+                vx: Math.cos(angle) * spd,
+                vy: Math.sin(angle) * spd,
+                alpha: 1.0,
+                color: i % 2 === 0 ? "#fbbf24" : "#f97316",
+              });
+            }
+            state.gameScore += target.word.length * 10 * state.gameCombo;
+            state.gameCombo = Math.min(10, state.gameCombo + 1);
+            state.templeSpawnRate = Math.max(950, 2300 - state.gameScore * 0.6);
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+            updateGameHUD();
+            return;
+          }
+          if (
+            !state.templeMeteors.some((m) =>
+              m.word.startsWith(state.gameTypedBuffer),
+            )
+          ) {
+            playSound("error");
+            state.gameCombo = 1;
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+            updateGameHUD();
+          } else {
+            playSound("key");
+          }
+        } else if (active === "lantern") {
+          const matchIdx = state.lanterns.findIndex(
+            (l) => l.word === state.gameTypedBuffer,
+          );
+          if (matchIdx !== -1) {
+            const lantern = state.lanterns[matchIdx];
+            playSound("laser");
+            state.lanterns.splice(matchIdx, 1);
+            state.lanternPops.push({
+              x: lantern.x,
+              y: lantern.y,
+              r: lantern.radius * 0.6,
+              alpha: 1,
+              color: lantern.color,
+            });
+            const mult = lantern.isGolden ? 2 : 1;
+            if (lantern.isGolden)
+              state.lanternFreezeUntil = performance.now() + 4000;
+            state.gameScore +=
+              lantern.word.length * 12 * state.gameCombo * mult;
+            state.gameCombo = Math.min(10, state.gameCombo + 1);
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+            updateGameHUD();
+            return;
+          }
+          if (
+            !state.lanterns.some((l) =>
+              l.word.startsWith(state.gameTypedBuffer),
+            )
+          ) {
+            playSound("error");
+            state.gameCombo = 1;
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+            updateGameHUD();
+          } else {
+            playSound("key");
+          }
+        } else if (active === "boat") {
+          if (state.gameTypedBuffer === state.boatTargetWord) {
+            playSound("laser");
+            const player = state.boatPlayers[0];
+            if (player) player.speed += 3.8 + state.gameCombo * 0.35;
+            state.gameScore +=
+              state.boatTargetWord.length * 15 * state.gameCombo;
+            state.gameCombo = Math.min(10, state.gameCombo + 1);
+            state.boatTargetWord = pickUniqueWord([state.boatTargetWord]);
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+            updateGameHUD();
+            return;
+          }
+          if (!state.boatTargetWord.startsWith(state.gameTypedBuffer)) {
+            playSound("error");
+            state.gameCombo = 1;
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+            updateGameHUD();
+          } else {
+            playSound("key");
+          }
+        } else if (active === "grid") {
+          const card = state.gridCards.find(
+            (c) => !c.cleared && c.word === state.gameTypedBuffer,
+          );
+          if (card) {
+            playSound("laser");
+            card.cleared = true;
+            state.gameScore += card.word.length * 12 * state.gameCombo;
+            state.gameCombo = Math.min(10, state.gameCombo + 1);
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+
+            if (state.gridCards.every((c) => c.cleared)) {
+              state.gridRound++;
+              state.gridTimeLeft += 8;
+              playSound("success");
+              populateReflexGridRound();
+            } else {
+              renderReflexGridCards();
+            }
+            updateGameHUD();
+            return;
+          }
+          if (
+            !state.gridCards.some(
+              (c) => !c.cleared && c.word.startsWith(state.gameTypedBuffer),
+            )
+          ) {
+            playSound("error");
+            state.gameCombo = 1;
+            state.gameTypedBuffer = "";
+            updateGameBufferUI();
+            updateGameHUD();
+          } else {
+            playSound("key");
+          }
+          renderReflexGridCards();
+        }
+      }
+
+      /* ============================================================================
+           10. INITIALIZE ON PAGE LOAD
+           ============================================================================ */
+      window.addEventListener("DOMContentLoaded", () => {
+        buildVisualKeyboard();
+        renderLessonList();
+        resetCurrentLesson();
+        updateHeaderStats();
+        focusTypingInput();
+      });
+    </script>
+  </body>
+</html>
